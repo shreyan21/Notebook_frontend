@@ -1,24 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/Navbar';
+import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
+import ViewNotes from './components/viewNotes';
+import AddNote from './components/AddNote';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { loggedInContext } from './context/LoginContext';
+import { useState } from 'react';
 
 function App() {
+  const [token, setToken] = useState(null)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      
+      <loggedInContext.Provider value={{ token, setToken }}>
+        <Navbar />
+        <div className='container mt-2'>
+        <Routes>
+          <Route exact path='/' element={token?<ViewNotes/>:''}/>
+          <Route exact path='/addnote' element={<AddNote/>}/>
+          <Route exact path='/signin' element={<SignIn />} />
+          <Route exact path='/signup' element={<SignUp />} />
+        </Routes>
+        </div>
+       
+      </loggedInContext.Provider>
+    </>
   );
 }
 
