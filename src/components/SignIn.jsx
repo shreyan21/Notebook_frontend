@@ -6,6 +6,7 @@ const SignIn = (props) => {
 
     const [formData, setData] = useState({ email: '', password: '' })
     const [error, setError] = useState('')
+    const [reset,setReset]=useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const { setToken } = useContext(loggedInContext)
     const navigate = useNavigate()
