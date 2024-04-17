@@ -17,7 +17,7 @@ const EditNote = (props) => {
     const [tag, setTag] = useState(val.tag)
     const [description, setDescription] = useState(val.description)
 
-    useEffect(() => {  setTitle(val.title); setTag(val.tag); setDescription(val.description) }, [val.id])
+    useEffect(() => {  setTitle(val.title); setTag(val.tag); setDescription(val.description) }, [val.id,val.description,val.tag,val.title])
 
     const handleSubmit = async (event) => {
         event.preventDefault()

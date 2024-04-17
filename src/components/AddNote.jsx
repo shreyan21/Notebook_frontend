@@ -8,6 +8,7 @@ const AddNote = (props) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [tag, setTag] = useState('');
+  props.setShow(true)
   const navigate = useNavigate()
 
   async function handleSubmit(event) {

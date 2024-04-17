@@ -6,21 +6,22 @@ const SignIn = (props) => {
 
     const [formData, setData] = useState({ email: '', password: '' })
     const [error, setError] = useState('')
-    const [reset,setReset]=useState(false)
+    const [reset, setReset] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const { setToken } = useContext(loggedInContext)
     const navigate = useNavigate()
 
 
-   const emailWritten=(event)=>{
-       event.preventDefault()
-       if(formData.email===''){
-        setError('Enter email first')
-       }
-       else{
-        navigate(`/password/${formData.email}`)
-       }
-   }
+    const emailWritten = (event) => {
+        event.preventDefault()
+        if (formData.email === '') {
+            setError('Enter email first')
+        }
+        else {
+            setReset(false)
+            navigate(`/password/${formData.email}`)
+        }
+    }
 
     const handleChange = (event) => {
         setData({ ...formData, [event.target.name]: event.target.value })
@@ -91,7 +92,7 @@ const SignIn = (props) => {
                             <div className="mb-3">
                                 <label htmlFor="password" className="form-label">Password</label>
                                 <div className="input-group">
-                                    <input type={showPassword ? "text" : "password"} className="form-control" id="password" name="password" value={formData.password} onChange={handleChange} minLength="8" required={reset ? false : true} />
+                                    <input type={showPassword ? "text" : "password"} className="form-control" onClick={() => setReset(true)} id="password" name="password" value={formData.password} onChange={handleChange} minLength="8" required={reset ? false : true} />
                                     <button className="btn btn-outline-secondary" type="button" onClick={() => setShowPassword(!showPassword)}>
                                         <i className={showPassword ? "far fa-eye" : "far fa-eye-slash"}></i>
                                     </button>
@@ -100,7 +101,7 @@ const SignIn = (props) => {
                             </div>
                             <button type="submit" className="btn btn-sm  btn-dark mt-2 w-100" style={{ height: '40px' }} >Sign In</button>
 
-                            <Link to={`/password/${formData.email}`}  className=" text-decoration-none " onClick={emailWritten} >Forgot password</Link>
+                            <Link to={`/password/${formData.email}`} className=" text-decoration-none " onClick={emailWritten} >Forgot password</Link>
                             <div style={{ color: 'red', textAlign: 'center' }} >{error}</div>
                         </form>
                     </div>

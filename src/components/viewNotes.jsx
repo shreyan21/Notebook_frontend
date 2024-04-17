@@ -4,7 +4,7 @@ import { loggedInContext } from "../context/LoginContext.js"
 
 const ViewNotes = (props) => {
     const [data, setData] = useState([])
-    const [err, setError] = useState('')
+    const [error,setError]=useState('')
     const navigate = useNavigate()
     const [filternotes, setFilternotes] = useState([])
     const { token } = useContext(loggedInContext)
@@ -64,14 +64,15 @@ const ViewNotes = (props) => {
                 }
             }
             setData(JSON.parse(localStorage.getItem('notes')).notes)
-
-
-
-
         }
-        catch (err) {
+        catch(err){
             setError(err)
         }
+
+
+
+
+       
 
     }
 
@@ -104,13 +105,7 @@ const ViewNotes = (props) => {
     }
 
 
-    useEffect(() => {
-
-        fetchData()
-
-
-
-    }, [data])
+    useEffect(()=>{fetchData()},[data]);
 
     return (
 
@@ -243,6 +238,7 @@ const ViewNotes = (props) => {
 
 
             )}
+            <div>{error}</div>
 
 
 
