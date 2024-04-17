@@ -7,7 +7,7 @@ import AddNote from './components/AddNote';
 import { Routes, Route } from 'react-router-dom';
 import { loggedInContext } from './context/LoginContext.js';
 import EditNote from './components/EditNote';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Password from './components/Password.jsx';
 import LandingPage from './components/Landingpage.jsx';
 import UserProfile from './components/UserProfile.jsx';

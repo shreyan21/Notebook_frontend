@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react"
+import { useState, useContext } from "react"
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate, Link } from "react-router-dom"
 import { loggedInContext } from "../context/LoginContext.js"
@@ -6,7 +6,6 @@ const SignIn = (props) => {
 
     const [formData, setData] = useState({ email: '', password: '' })
     const [error, setError] = useState('')
-    const [reset, setReset] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const { setToken } = useContext(loggedInContext)
     const navigate = useNavigate()
