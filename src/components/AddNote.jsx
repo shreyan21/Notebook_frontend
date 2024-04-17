@@ -1,32 +1,46 @@
 import { useNavigate } from "react-router-dom";
-import { loggedInContext } from "../context/LoginContext";
 import { useContext, useState } from "react";
-const AddNote = () => {
+import Modal from 'react-bootstrap/Modal'
+
+const AddNote = (props) => {
 
 
-  const { token } = useContext(loggedInContext)
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [tag, setTag] = useState('');
   const navigate = useNavigate()
+
   async function handleSubmit(event) {
     event.preventDefault()
 
+
     await fetch('http://localhost:3001/notes/addNotes', {
-      method: 'POST', headers: { 'Content-Type': 'Application/json', 'Authorization': `${token}` }, body: JSON.stringify({ title, description, tag })
+      method: 'POST', headers: { 'Content-Type': 'Application/json', 'Authorization': `${JSON.parse(localStorage.getItem('token'))}` }, body: JSON.stringify({ title, description, tag })
     })
+
     setTitle('');
     setDescription('');
     setTag('');
-    navigate('/')
-
+    navigate('/');
   }
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-md-8">
-          <h2>Add Note</h2>
-          <form onSubmit={handleSubmit}>
+
+    <Modal
+      show={props.show}
+      onHide={() => { props.setShow(false); navigate('/') }}
+      dialogClassName="modal-90w"
+      aria-labelledby="example-custom-modal-styling-title"
+    >
+      <Modal.Header closeButton className="mb-0">
+        <Modal.Title id="example-custom-modal-styling-title" className="ms-auto"  >
+          Add Note
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div className="container">
+          {/* <div className="row justify-content-center">
+            <div className="col-md-8"> */}
+          <form onSubmit={handleSubmit} style={{ maxWidth: '400px', margin: '0 auto' }}>
             <div className="form-group">
               <label htmlFor="title">Title</label>
               <input
@@ -59,13 +73,12 @@ const AddNote = () => {
                 onChange={(e) => setTag(e.target.value)}
               />
             </div>
-            <button type="submit" className="btn btn-primary">Add Note</button>
+            <button type="submit" style={{  height: '40px' }} className="btn btn-sm btn-dark mt-2 w-100">Add Note</button>
           </form>
         </div>
-      </div>
-    </div>
-  );
-
+      </Modal.Body>
+    </Modal>
+  )
 }
 
 export default AddNote

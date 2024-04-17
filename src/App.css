@@ -1,10 +1,32 @@
-.App {
-  text-align: center;
-}
+
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+  
+.user-profile-button {
+  position: relative;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.user-profile-button:hover .user-profile-text {
+  display: block;
+}
+
+.user-profile-text {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
 }
 
 @media (prefers-reduced-motion: no-preference) {
