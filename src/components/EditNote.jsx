@@ -22,7 +22,7 @@ const EditNote = (props) => {
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
-            await fetch(`https://notebook-backend-app.vercel.app/notes/updateNotes/${id}`, { method: 'PUT', headers: { 'Content-Type': 'Application/json', 'Authorization': `${JSON.parse(localStorage.getItem('token'))}` }, body: JSON.stringify({ title, description, tag }) })
+            await fetch(`https://notebookbackend.netlify.app/notes/updateNotes/${id}`, { method: 'PUT', headers: { 'Content-Type': 'Application/json', 'Authorization': `${JSON.parse(localStorage.getItem('token'))}` }, body: JSON.stringify({ title, description, tag }) })
 
 
         }
