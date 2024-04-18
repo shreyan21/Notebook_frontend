@@ -12,7 +12,7 @@ function UserProfile(props) {
 
     const removeuser=async(event)=>{
         event.preventDefault()
-        await fetch('http://localhost:3001/auth/remove',{method:'DELETE',headers:{'Content-Type':'application/json','Authorization':`${token}`},body:JSON.stringify({id:data.user.id})})
+        await fetch('https://notebook-backend-app.vercel.app/auth/remove',{method:'DELETE',headers:{'Content-Type':'application/json','Authorization':`${token}`},body:JSON.stringify({id:data.user.id})})
         localStorage.clear()
         setToken(null)
      navigate('/')

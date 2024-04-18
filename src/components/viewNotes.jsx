@@ -55,7 +55,7 @@ const ViewNotes = (props) => {
     };
     const handleDelete = async (id) => {
         try {
-            await fetch(`http://localhost:3001/notes/deleteNotes/${id}`, { method: "DELETE", headers: { 'Content-Type': 'Application/json', 'Authorization': `${token}` } })
+            await fetch(`https://notebook-backend-app.vercel.app/notes/deleteNotes/${id}`, { method: "DELETE", headers: { 'Content-Type': 'Application/json', 'Authorization': `${token}` } })
 
             for (let i = 0; i < data.length; i++) {
                 if (data[i]._id === id) {
@@ -82,7 +82,7 @@ const ViewNotes = (props) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const res = await fetch('http://localhost:3001/notes/fetchNotes', { method: "GET", headers: { 'Content-Type': 'Application/json', 'Authorization': `${token}` } })
+                const res = await fetch('https://notebook-backend-app.vercel.app/notes/fetchNotes', { method: "GET", headers: { 'Content-Type': 'Application/json', 'Authorization': `${token}` } })
                 if (!res.ok) {
                     throw new Error('Error fetching data')
                 }

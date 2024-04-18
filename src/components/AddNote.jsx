@@ -15,7 +15,7 @@ const AddNote = (props) => {
     event.preventDefault()
 
 
-    await fetch('http://localhost:3001/notes/addNotes', {
+    await fetch('https://notebook-backend-app.vercel.app/notes/addNotes', {
       method: 'POST', headers: { 'Content-Type': 'Application/json', 'Authorization': `${JSON.parse(localStorage.getItem('token'))}` }, body: JSON.stringify({ title, description, tag })
     })
 

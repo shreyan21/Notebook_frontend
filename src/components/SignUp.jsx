@@ -48,7 +48,7 @@ const SignUpForm = (props) => {
       return;
     }
     try {
-      const response = await fetch('http://localhost:3001/auth/create', {
+      const response = await fetch('https://notebook-backend-app.vercel.app/auth/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
