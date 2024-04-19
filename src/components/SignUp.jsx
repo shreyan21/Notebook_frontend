@@ -48,7 +48,7 @@ const SignUpForm = (props) => {
       return;
     }
     try {
-      const response = await fetch('https://notebookbackend.netlify.app/auth/create', {
+      const response = await fetch('https://notebookbackend-flame.vercel.app/auth/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -37,7 +37,7 @@ const Password = (props) => {
             setError('Password must contain at least one special character');
           }
         else{
-        await fetch('https://notebookbackend.netlify.app/auth/resetPassword', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password, email }) })
+        await fetch('https://notebookbackend-flame.vercel.app/auth/resetPassword', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password, email }) })
         navigate('/signin')
         }
     }

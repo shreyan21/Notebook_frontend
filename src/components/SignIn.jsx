@@ -32,7 +32,7 @@ const SignIn = (props) => {
 
 
         try {
-            const res = await fetch('https://notebookbackend.netlify.app/auth/login', {
+            const res = await fetch('https://notebookbackend-flame.vercel.app/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)

@@ -15,7 +15,7 @@ const AddNote = (props) => {
     event.preventDefault()
 
 
-    await fetch('https://notebookbackend.netlify.app/notes/addNotes', {
+    await fetch('https://notebookbackend-flame.vercel.app/notes/addNotes', {
       method: 'POST', headers: { 'Content-Type': 'Application/json', 'Authorization': `${JSON.parse(localStorage.getItem('token'))}` }, body: JSON.stringify({ title, description, tag })
     })
 
