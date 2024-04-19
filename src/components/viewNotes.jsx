@@ -55,7 +55,7 @@ const ViewNotes = (props) => {
     };
     const handleDelete = async (id) => {
         try {
-            await fetch(`https://notebookbackend-flame.vercel.app/deleteNotes/${id}`, { method: "DELETE", headers: { 'Content-Type': 'Application/json', 'Authorization': `${token}` } })
+            await fetch(`https://notebookbackend-flame.vercel.app/notes/deleteNotes/${id}`, { method: "DELETE", headers: { 'Content-Type': 'Application/json', 'Authorization': `${token}` } })
 
             for (let i = 0; i < data.length; i++) {
                 if (data[i]._id === id) {
