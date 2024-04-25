@@ -115,7 +115,7 @@ const ViewNotes = (props) => {
 
         <>
 
-            {data.length === 0 ? (
+            {JSON.parse(localStorage.getItem('notes')).length === 0 ? (
                 <>
                     <div className="alert alert-info text-center" role="alert">
                         Your notebook is empty. <Link to="/addnote" className="alert-link">Add a note</Link>
