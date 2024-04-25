@@ -7,6 +7,7 @@ const ViewNotes = (props) => {
     const [error, setError] = useState('')
     const navigate = useNavigate()
     const [filternotes, setFilternotes] = useState([])
+    let [fetching, setFetching] = useState(true)
     const { token } = useContext(loggedInContext)
     const addNote = (event) => {
         event.preventDefault()
@@ -98,6 +99,7 @@ const ViewNotes = (props) => {
 
                 // Set the data state with the fetched notes
                 setData(result.notes);
+                setFetching(false)
 
             }
             catch (err) {
@@ -105,7 +107,7 @@ const ViewNotes = (props) => {
             }
         }
         fetchData();
-    }, [data,token])
+    }, [data, token])
 
 
 
@@ -114,132 +116,143 @@ const ViewNotes = (props) => {
 
 
         <>
+            {/* {fetching===true?(
+            // {data.length === 0 ? (
+            //     <>
+            //         <div className="alert alert-info text-center" role="alert">
+            //             Your notebook is empty. <Link to="/addnote" className="alert-link">Add a note</Link>
+            //         </div>
+            //     </>
+            ) : ( */}
+            {fetching === true ?
+                (
 
-            {data.length === 0 ? (
-                <>
-                    <div className="alert alert-info text-center" role="alert">
-                        Your notebook is empty. <Link to="/addnote" className="alert-link">Add a note</Link>
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
                     </div>
-                </>
-            ) : (
-
-                <div>
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-lg-3 pt-5  bg-light">
-                                {/* <h2>Filter</h2> */}
-                                <form onSubmit={handleSubmit}>
-                                    <div className="mb-3">
-                                        <label htmlFor="titleInput" className="form-label">Title:</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="titleInput"
-                                            name="title"
-                                            value={formData.title}
-                                            onChange={handleChange}
-                                            placeholder="Title"
-                                        />
+                ) : (
+                    data.length === 0 ? (
+                        <div className="alert alert-info text-center" role="alert">
+                            Your notebook is empty. <Link to="/addnote" className="alert-link">Add a note</Link>
+                        </div>
+                    ) :
+                        <div>
+                            <div className="container-fluid">
+                                <div className="row">
+                                    <div className="col-lg-3 pt-5  bg-light">
+                                        {/* <h2>Filter</h2> */}
+                                        <form onSubmit={handleSubmit}>
+                                            <div className="mb-3">
+                                                <label htmlFor="titleInput" className="form-label">Title:</label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    id="titleInput"
+                                                    name="title"
+                                                    value={formData.title}
+                                                    onChange={handleChange}
+                                                    placeholder="Title"
+                                                />
+                                            </div>
+                                            <div className="mb-3">
+                                                <label htmlFor="tagInput" className="form-label">Tag:</label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    id="tagInput"
+                                                    name="tag"
+                                                    value={formData.tag}
+                                                    onChange={handleChange}
+                                                    placeholder="Tag"
+                                                />
+                                            </div>
+                                            <button type="submit" className="btn btn-primary w-100 ">Submit</button>
+                                        </form>
                                     </div>
-                                    <div className="mb-3">
-                                        <label htmlFor="tagInput" className="form-label">Tag:</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="tagInput"
-                                            name="tag"
-                                            value={formData.tag}
-                                            onChange={handleChange}
-                                            placeholder="Tag"
-                                        />
-                                    </div>
-                                    <button type="submit" className="btn btn-primary w-100 ">Submit</button>
-                                </form>
-                            </div>
-                            <div className="col-lg-9 ">
+                                    <div className="col-lg-9 ">
 
 
 
 
-                                <div className="container mt-5">
-                                    <div className="row">
+                                        <div className="container mt-5">
+                                            <div className="row">
 
 
 
 
-                                        {filternotes.length !== 0 ?
+                                                {filternotes.length !== 0 ?
 
-                                            (filternotes.map((val) => (
+                                                    (filternotes.map((val) => (
 
-                                                <div key={val._id} className=" col-sm-6 col-xs-12 col-lg-4 col-md-4 col-xl-3 mb-3">
+                                                        <div key={val._id} className=" col-sm-6 col-xs-12 col-lg-4 col-md-4 col-xl-3 mb-3">
 
-                                                    <div className="card h-100 shadow">
-                                                        <div className="card-header border-light">
-                                                            <Link to={`/${val._id}`} onClick={() => { props.setShow(true) }} className="card-link btn btn-sm float-end "  ><i className="fa-solid fa-pen"  ></i></Link>
-                                                            <h5 className="card-title">{val.title}</h5>
-                                                            <h6 className="card-subtitle mb-2 text-body-secondary">{val.tag}</h6>
+                                                            <div className="card h-100 shadow">
+                                                                <div className="card-header border-light">
+                                                                    <Link to={`/${val._id}`} onClick={() => { props.setShow(true) }} className="card-link btn btn-sm float-end "  ><i className="fa-solid fa-pen"  ></i></Link>
+                                                                    <h5 className="card-title">{val.title}</h5>
+                                                                    <h6 className="card-subtitle mb-2 text-body-secondary">{val.tag}</h6>
+                                                                </div>
+                                                                <div className="card-body" >
+                                                                    <p className="card-text">{val.description}</p>
+                                                                </div>
+                                                                <div className="card-footer border-light bg-white ">
+
+                                                                    <Link to='/' onClick={() => handleDelete(val._id)} className="card-link btn btn-sm"><i className="fa-solid fa-trash"></i></Link>
+                                                                    <div className="float-end ">{new Date(val.date).toDateString()}</div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div className="card-body" >
-                                                            <p className="card-text">{val.description}</p>
-                                                        </div>
-                                                        <div className="card-footer border-light bg-white ">
 
-                                                            <Link to='/' onClick={() => handleDelete(val._id)} className="card-link btn btn-sm"><i className="fa-solid fa-trash"></i></Link>
-                                                            <div className="float-end ">{new Date(val.date).toDateString()}</div>
+                                                    )))
+
+                                                    :
+
+
+                                                    data.map((val) => (
+                                                        <>
+                                                            <div key={val._id} className=" col-sm-6 col-xs-12 col-lg-4 col-md-4 col-xl-3 mb-3">
+                                                                <div className="card h-100 shadow">
+                                                                    <div className="card-header border-light">
+                                                                        <Link to={`/${val._id}`} onClick={() => { props.setShow(true) }} className="card-link btn btn-sm float-end "  ><i className="fa-solid fa-pen"  ></i></Link>
+                                                                        <h5 className="card-title">{val.title}</h5>
+                                                                        <h6 className="card-subtitle mb-2 text-body-secondary">{val.tag}</h6>
+                                                                    </div>
+                                                                    <div className="card-body" >
+                                                                        <p className="card-text">{val.description}</p>
+                                                                    </div>
+                                                                    <div className="card-footer border-light bg-white ">
+
+                                                                        <Link to='/' onClick={() => handleDelete(val._id)} className="card-link btn btn-sm"><i className="fa-solid fa-trash"></i></Link>
+                                                                        <div className="float-end ">{new Date(val.date).toDateString()}</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </>
+
+                                                    )
+
+
+                                                    )}
+
+                                                <div className=" col-sm-6 col-xs-12 col-lg-4 col-xl-3 col-md-4 mb-3"   >
+                                                    <div className="card bg-light shadow h-100" style={{ borderStyle: 'dashed' }}  >
+
+                                                        <div className="card-body  d-flex justify-content-center  align-items-center">
+                                                            <Link className=" text-decoration-none " onClick={addNote} to='/addNote' > <i className="fa-solid fa-square-plus fa-lg "></i>
+                                                            </Link>
                                                         </div>
+
                                                     </div>
                                                 </div>
-
-                                            )))
-
-                                            :
-
-
-                                            data.map((val) => (
-                                                <>
-                                                    <div key={val._id} className=" col-sm-6 col-xs-12 col-lg-4 col-md-4 col-xl-3 mb-3">
-                                                        <div className="card h-100 shadow">
-                                                            <div className="card-header border-light">
-                                                                <Link to={`/${val._id}`} onClick={() => { props.setShow(true) }} className="card-link btn btn-sm float-end "  ><i className="fa-solid fa-pen"  ></i></Link>
-                                                                <h5 className="card-title">{val.title}</h5>
-                                                                <h6 className="card-subtitle mb-2 text-body-secondary">{val.tag}</h6>
-                                                            </div>
-                                                            <div className="card-body" >
-                                                                <p className="card-text">{val.description}</p>
-                                                            </div>
-                                                            <div className="card-footer border-light bg-white ">
-
-                                                                <Link to='/' onClick={() => handleDelete(val._id)} className="card-link btn btn-sm"><i className="fa-solid fa-trash"></i></Link>
-                                                                <div className="float-end ">{new Date(val.date).toDateString()}</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </>
-
-                                            )
-
-
-                                            )}
-
-                                        <div className=" col-sm-6 col-xs-12 col-lg-4 col-xl-3 col-md-4 mb-3"   >
-                                            <div className="card bg-light shadow h-100" style={{ borderStyle: 'dashed' }}  >
-
-                                                <div className="card-body  d-flex justify-content-center  align-items-center">
-                                                    <Link className=" text-decoration-none " onClick={addNote} to='/addNote' > <i className="fa-solid fa-square-plus fa-lg "></i>
-                                                    </Link>
-                                                </div>
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
 
-            )}
+                )}
             <div>{error}</div>
 
 
