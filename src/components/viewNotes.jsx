@@ -116,19 +116,14 @@ const ViewNotes = (props) => {
 
 
         <>
-            {/* {fetching===true?(
-            // {data.length === 0 ? (
-            //     <>
-            //         <div className="alert alert-info text-center" role="alert">
-            //             Your notebook is empty. <Link to="/addnote" className="alert-link">Add a note</Link>
-            //         </div>
-            //     </>
-            ) : ( */}
+
             {fetching === true ?
                 (
+                    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
 
-                    <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Loading...</span>
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
                     </div>
                 ) : (
                     data.length === 0 ? (
