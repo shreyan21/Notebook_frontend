@@ -119,7 +119,7 @@ const ViewNotes = (props) => {
 
             {fetching === true ?
                 (
-                    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+                    <div class="d-flex justify-content-center align-items-center" style={{height: '100vh'}}>
 
                         <div class="spinner-border" role="status">
                             <span class="visually-hidden">Loading...</span>
@@ -247,7 +247,7 @@ const ViewNotes = (props) => {
                         </div>
 
 
-                )}
+)}
             <div>{error}</div>
 
 
