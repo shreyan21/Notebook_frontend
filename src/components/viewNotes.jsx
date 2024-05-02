@@ -161,7 +161,7 @@ const ViewNotes = (props) => {
                                                     placeholder="Tag"
                                                 />
                                             </div>
-                                            <button type="submit" className="btn btn-primary w-100 ">Submit</button>
+                                            <button type="submit" className="btn btn-primary w-100 ">Apply</button>
                                         </form>
                                     </div>
                                     <div className="col-lg-9 ">
