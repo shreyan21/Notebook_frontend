@@ -229,16 +229,18 @@ const ViewNotes = (props) => {
 
                                                     )}
 
-                                                <div className=" col-sm-6 col-xs-12 col-lg-4 col-xl-3 col-md-4 mb-3"   >
+                                                <Link className=" col-sm-6 col-xs-12 col-lg-4 col-xl-3 col-md-4 mb-3 text-decoration-none " onClick={addNote}  >
                                                     <div className="card bg-light shadow h-100" style={{ borderStyle: 'dashed' }}  >
 
                                                         <div className="card-body  d-flex justify-content-center  align-items-center">
-                                                            <Link className=" text-decoration-none " onClick={addNote} to='/addNote' > <i className="fa-solid fa-square-plus fa-lg "></i>
-                                                            </Link>
+                                                            {/* <Link className=" text-decoration-none " onClick={addNote} to='/addNote' > */}
+                                                                 <i className="fa-solid fa-square-plus fa-lg "></i>
+
+                                                            {/* </Link> */}
                                                         </div>
 
                                                     </div>
-                                                </div>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>
