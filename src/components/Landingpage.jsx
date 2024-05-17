@@ -4,9 +4,7 @@ function LandingPage(props) {
     const setSignUp = () => {
         props.setShow(true)
     }
-    const setSignIn = () => {
-        props.setShow(true)
-    }
+   
     return (
         <div className="container-fluid text-center py-5">
             <div className="row">
