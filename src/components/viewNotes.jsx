@@ -104,6 +104,7 @@ const ViewNotes = (props) => {
 
                 // Set the data state with the fetched notes
                 setData(result.notes);
+                setFilternotes(data)
                 setFetching(false)
 
             }
