@@ -168,7 +168,7 @@ const ViewNotes = (props) => {
                                                 />
                                             </div>
                                             <button type="submit" className="btn btn-primary w-100 ">Apply</button>
-                                            <button type="reset" onClick={clearit} className="btn btn-primary w-100 ">Clear</button>
+                                            <button type="reset" onClick={clearit} className="btn btn-primary w-100 mt-2">Clear</button>
                                          
                                         </form>
                                     </div>
