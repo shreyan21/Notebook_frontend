@@ -154,7 +154,7 @@ const ViewNotes = (props) => {
                                 <div className="row">
                                     <div className="col-lg-3 pt-5  bg-light">
                                         {/* <h2>Filter</h2> */}
-                                        <form onSubmit={handleSubmit}>
+                                        <form>
                                             <div className="mb-3">
                                                 <label htmlFor="titleInput" className="form-label">Title:</label>
                                                 <input
@@ -179,7 +179,7 @@ const ViewNotes = (props) => {
                                                     placeholder="Tag"
                                                 />
                                             </div>
-                                            <button type="submit" className="btn btn-primary w-100 ">Apply</button>
+                                            <button type="submit" onClick={handleSubmit} className="btn btn-primary w-100 ">Apply</button>
                                             <button type="reset" onClick={clearit} className="btn btn-primary w-100 mt-2">Clear</button>
                                          
                                         </form>
@@ -195,35 +195,11 @@ const ViewNotes = (props) => {
 
 
 
-                                                {filternotes.length !== 0 ?
 
-                                                    (filternotes.map((val) => (
-
-                                                        <div key={val._id} className=" col-sm-6 col-xs-12 col-lg-4 col-md-4 col-xl-3 mb-3">
-
-                                                            <div className="card h-100 shadow">
-                                                                <div className="card-header border-light">
-                                                                    <Link to={`/${val._id}`} onClick={() => { props.setShow(true) }} className="card-link btn btn-sm float-end "  ><i className="fa-solid fa-pen"  ></i></Link>
-                                                                    <h5 className="card-title">{val.title}</h5>
-                                                                    <h6 className="card-subtitle mb-2 text-body-secondary">{val.tag}</h6>
-                                                                </div>
-                                                                <div className="card-body" >
-                                                                    <p className="card-text">{val.description}</p>
-                                                                </div>
-                                                                <div className="card-footer border-light bg-white ">
-
-                                                                    <Link to='/' onClick={() => handleDelete(val._id)} className="card-link btn btn-sm"><i className="fa-solid fa-trash"></i></Link>
-                                                                    <div className="float-end ">{new Date(val.date).toDateString()}</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    )))
-
-                                                    :
+                                                    
 
 
-                                                    filternotes.map((val) => (
+                                                    {filternotes.map((val) => (
                                                         <>
                                                             <div key={val._id} className=" col-sm-6 col-xs-12 col-lg-4 col-md-4 col-xl-3 mb-3">
                                                                 <div className="card h-100 shadow">
