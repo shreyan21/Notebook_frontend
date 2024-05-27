@@ -39,6 +39,10 @@ const ViewNotes = (props) => {
                     temp.push(iterator)
 
                 }
+                else{
+                    setFilternotes([])
+                    return
+                }
                
             }
         }
@@ -48,12 +52,20 @@ const ViewNotes = (props) => {
                 if (formData.title === iterator.title) {
                     temp.push(iterator)
                 }
+                else{
+                    setFilternotes([])
+                    return
+                }
             }
         }
         else if (formData.tag !== '') {
             for (const iterator of data) {
                 if (formData.tag === iterator.tag) {
                     temp.push(iterator)
+                }
+                else{
+                    setFilternotes([])
+                    return;
                 }
             }
         }
