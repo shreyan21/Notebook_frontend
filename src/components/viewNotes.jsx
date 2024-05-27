@@ -14,8 +14,12 @@ const ViewNotes = (props) => {
         props.setShow(true)
         navigate('/addnote')
     }
-
-
+      
+    const clearit=(event)=>{
+        event.preventDefault()
+        filternotes(data)
+    }
+    
     const [formData, setFormData] = useState({
         title: '',
         tag: ''
@@ -35,6 +39,7 @@ const ViewNotes = (props) => {
                     temp.push(iterator)
 
                 }
+               
             }
         }
 
@@ -203,7 +208,7 @@ const ViewNotes = (props) => {
                                                     :
 
 
-                                                    data.map((val) => (
+                                                    filternotes.map((val) => (
                                                         <>
                                                             <div key={val._id} className=" col-sm-6 col-xs-12 col-lg-4 col-md-4 col-xl-3 mb-3">
                                                                 <div className="card h-100 shadow">
