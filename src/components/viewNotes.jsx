@@ -32,19 +32,19 @@ const ViewNotes = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Handle form submission logic here
-        let temp = []
+        
+        setFilternotes([])
+        let temp=[]
         if (formData.title !== '' && formData.tag !== '') {
             for (const iterator of data) {
                 if ((formData.title === iterator.title) && (formData.tag === iterator.tag)) {
                     temp.push(iterator)
-
+                    
                 }
-                else{
-                    setFilternotes([])
-                    return
-                }
-               
+                
+                
             }
+            setFilternotes(temp)
         }
 
         else if (formData.title !== '') {
@@ -52,24 +52,19 @@ const ViewNotes = (props) => {
                 if (formData.title === iterator.title) {
                     temp.push(iterator)
                 }
-                else{
-                    setFilternotes([])
-                    return
-                }
+                
             }
+            setFilternotes(temp)
         }
         else if (formData.tag !== '') {
             for (const iterator of data) {
                 if (formData.tag === iterator.tag) {
                     temp.push(iterator)
                 }
-                else{
-                    setFilternotes([])
-                    return;
-                }
+                
             }
+            setFilternotes(temp)
         }
-        setFilternotes(temp)
     };
     const handleDelete = async (id) => {
         try {
@@ -154,7 +149,7 @@ const ViewNotes = (props) => {
                                 <div className="row">
                                     <div className="col-lg-3 pt-5  bg-light">
                                         {/* <h2>Filter</h2> */}
-                                        <form>
+                                        <form onSubmit={handleSubmit}>
                                             <div className="mb-3">
                                                 <label htmlFor="titleInput" className="form-label">Title:</label>
                                                 <input
@@ -179,7 +174,7 @@ const ViewNotes = (props) => {
                                                     placeholder="Tag"
                                                 />
                                             </div>
-                                            <button type="submit" onClick={handleSubmit} className="btn btn-primary w-100 ">Apply</button>
+                                            <button type="submit"  className="btn btn-primary w-100 ">Apply</button>
                                             <button type="reset" onClick={clearit} className="btn btn-primary w-100 mt-2">Clear</button>
                                          
                                         </form>
