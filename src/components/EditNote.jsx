@@ -1,29 +1,42 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { json, useNavigate, useParams } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal'
+import { notecontext } from "../context/NoteContext";
+import { filterContext } from "../context/FilteredContext";
 const EditNote = (props) => {
 
-    let val
-    const data = JSON.parse(localStorage.getItem('notes')).notes;
+    let val;
+    const {note,setNote}=useContext(notecontext)
     const { id } = useParams()
+    const {setFilter}=useContext(filterContext)
     const navigate = useNavigate()
-    for (const iterator of data) {
+    
+    
+    for (const iterator of note) {
         if (iterator._id === id) {
-            val = { id: iterator._id, title: iterator.title, description: iterator.description, tag: iterator.tag }
+            
+            val = { title: iterator.title, description: iterator.description, tag: iterator.tag }
             break
         }
     }
-    const [title, setTitle] = useState(val.title)
-    const [tag, setTag] = useState(val.tag)
-    const [description, setDescription] = useState(val.description)
+    const [title, setTitle] = useState('')
+    const [tag, setTag] = useState('')
+    const [description, setDescription] = useState('')
 
-    useEffect(() => {  setTitle(val.title); setTag(val.tag); setDescription(val.description) }, [val.id,val.description,val.tag,val.title])
+    useEffect(() => {  setTitle(val.title); setTag(val.tag); setDescription(val.description) }, [])
 
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
-            await fetch(`https://notebookbackend-flame.vercel.app/notes/updateNotes/${id}`, { method: 'PUT', headers: { 'Content-Type': 'Application/json', 'Authorization': `${JSON.parse(localStorage.getItem('token'))}` }, body: JSON.stringify({ title, description, tag }) })
+            const result=await fetch(`https://notebookbackend-flame.vercel.app/notes/updateNotes/${id}`, { method: 'PUT', headers: { 'Content-Type': 'Application/json', 'Authorization': `${JSON.parse(localStorage.getItem('token'))}` }, body: JSON.stringify({ title, description, tag }) })
 
+            const res=await result.json()
+            setNote(res.note)
+            setFilter(res.note)
+            let existingItem;
+            existingItem.notes=note
+            localStorage.setItem('notes',JSON.stringify(existingItem))
+            
 
         }
         catch (err) {

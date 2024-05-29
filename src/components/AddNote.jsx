@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import {  useState } from "react";
+import {  useContext, useState } from "react";
 import Modal from 'react-bootstrap/Modal'
+import { filterContext } from "../context/FilteredContext";
+import { notecontext } from "../context/NoteContext";
 // http://notebookbackend-flame.vercel.app
 const AddNote = (props) => {
 
@@ -8,6 +10,8 @@ const AddNote = (props) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [tag, setTag] = useState('');
+  const {filter,setFilter}=useContext(filterContext)
+  const {note,setNote}=useContext(notecontext)
   props.setShow(true)
   const navigate = useNavigate()
 
@@ -15,10 +19,16 @@ const AddNote = (props) => {
     event.preventDefault()
 
 
-    await fetch('https://notebookbackend-flame.vercel.app/notes/addNotes', {
+    const result=await fetch('https://notebookbackend-flame.vercel.app/notes/addNotes', {
       method: 'POST', headers: { 'Content-Type': 'Application/json', 'Authorization': `${JSON.parse(localStorage.getItem('token'))}` }, body: JSON.stringify({ title, description, tag })
     })
-
+    const res=await result.json()
+    setFilter(res.note1);
+    setNote(res.note1)
+    console.log(res.note1);
+    let existingItem={}
+    existingItem.notes=note;
+    localStorage.setItem('notes',JSON.stringify(existingItem))
     setTitle('');
     setDescription('');
     setTag('');

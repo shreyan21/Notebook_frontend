@@ -1,126 +1,118 @@
 import { useContext, useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { loggedInContext } from "../context/LoginContext.js"
+import { notecontext } from "../context/NoteContext.js"
+import { filterContext } from "../context/FilteredContext.js"
+
+import '../ViewNotes.css'
 
 const ViewNotes = (props) => {
-    const [data, setData] = useState([])
     const [error, setError] = useState('')
     const navigate = useNavigate()
-    const [filternotes, setFilternotes] = useState([])
-    let [fetching, setFetching] = useState(true)
+    const [fetching, setFetching] = useState(true)
     const { token } = useContext(loggedInContext)
+    const { note, setNote } = useContext(notecontext)
+    const{filternote,setFilter}=useContext(filterContext)
+
     const addNote = (event) => {
         event.preventDefault()
-        props.setShow(true)
+        // props.setShow(true)
         navigate('/addnote')
     }
-      
-    const clearit=(event)=>{
-        event.preventDefault()
-        filternotes(data)
-    }
-    
+
+
+
     const [formData, setFormData] = useState({
         title: '',
         tag: ''
     });
+    async function fetchData() {
+        try {
+            const res = await fetch('https://notebookbackend-flame.vercel.app/notes/fetchNotes', { method: "GET", headers: { 'Content-Type': 'Application/json', 'Authorization': `${token}` } })
+            if (!res.ok) {
+                throw new Error('Error fetching filteredData')
+            }
+            const result = await res.json()
+            
+            let existingItem = JSON.parse(localStorage.getItem('notes')) || { notes: [] };
+            
+            // Update existingItem with the fetched notes
+            existingItem.notes = result.notes;
+            
+            // Update localStorage with the updated existingItem
+            
+            localStorage.setItem('notes', JSON.stringify(existingItem));
+            
+            setNote(result.notes)
+            // Set the filteredData state with the fetched notes
+            setFilter(result.notes);
+            setFetching(false)
+            
+        }
+        catch (err) {
+            setError(err)
+        }
+    }
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle form submission logic here
-        
-        setFilternotes([])
-        let temp=[]
-        if (formData.title !== '' && formData.tag !== '') {
-            for (const iterator of data) {
-                if ((formData.title === iterator.title) && (formData.tag === iterator.tag)) {
-                    temp.push(iterator)
-                    
-                }
-                
-                
-            }
-            setFilternotes(temp)
-        }
-
-        else if (formData.title !== '') {
-            for (const iterator of data) {
-                if (formData.title === iterator.title) {
-                    temp.push(iterator)
-                }
-                
-            }
-            setFilternotes(temp)
-        }
-        else if (formData.tag !== '') {
-            for (const iterator of data) {
-                if (formData.tag === iterator.tag) {
-                    temp.push(iterator)
-                }
-                
-            }
-            setFilternotes(temp)
-        }
-    };
     const handleDelete = async (id) => {
         try {
             await fetch(`https://notebookbackend-flame.vercel.app/notes/deleteNotes/${id}`, { method: "DELETE", headers: { 'Content-Type': 'Application/json', 'Authorization': `${token}` } })
-
-            for (let i = 0; i < data.length; i++) {
-                if (data[i]._id === id) {
+            
+            for (let i = 0; i < filternote.length; i++) {
+                if (note[i]._id === id) {
                     JSON.parse(localStorage.getItem('notes')).notes.splice(i, 1)
                     break
                 }
             }
-            setData(JSON.parse(localStorage.getItem('notes')).notes)
+            fetchData()
         }
         catch (err) {
             setError(err)
         }
-
-
-
-
-
+        
+        
+        
+        
+        
 
     }
 
-
-
-
+    
+    const updateItEdit=()=>{
+        props.setShow(true);
+    }
+    
+    
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const res = await fetch('https://notebookbackend-flame.vercel.app/notes/fetchNotes', { method: "GET", headers: { 'Content-Type': 'Application/json', 'Authorization': `${token}` } })
-                if (!res.ok) {
-                    throw new Error('Error fetching data')
-                }
-                const result = await res.json()
+        fetchData()
+        
+        
+    }, [token])
+    
+    const handleClear=()=>{
+         setFormData({title:'',tag:''})
+         setFilter(note)
+    }
+    
+    const handleSubmit = (e) => {
+        // e.preventDefault();
+        // Handle form submission logic here
+       
 
-                let existingItem = JSON.parse(localStorage.getItem('notes')) || { notes: [] };
+            e.preventDefault();
+            const temp = note.filter(note =>
+                (formData.title === '' || note.title.toLowerCase().includes(formData.title.toLowerCase())) &&
+                (formData.tag === '' || note.tag.toLowerCase().includes(formData.tag.toLowerCase()))
+            );
+            setFilter(temp);
+    
 
-                // Update existingItem with the fetched notes
-                existingItem.notes = result.notes;
 
-                // Update localStorage with the updated existingItem
-                localStorage.setItem('notes', JSON.stringify(existingItem));
-
-                // Set the data state with the fetched notes
-                setData(result.notes);
-                setFilternotes(data)
-                setFetching(false)
-
-            }
-            catch (err) {
-                setError(err)
-            }
-        }
-        fetchData();
-    }, [data, token])
+    };
 
 
 
@@ -132,14 +124,14 @@ const ViewNotes = (props) => {
 
             {fetching === true ?
                 (
-                    <div className="d-flex justify-content-center align-items-center" style={{height: '100vh'}}>
+                    <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
 
                         <div className="spinner-border text-center" role="status">
                             <span className="visually-hidden">Loading...</span>
                         </div>
                     </div>
                 ) : (
-                    data.length === 0 ? (
+                    filternote.length===0 ? (
                         <div className="alert alert-info text-center" role="alert">
                             Your notebook is empty. <Link to="/addnote" className="alert-link">Add a note</Link>
                         </div>
@@ -174,9 +166,9 @@ const ViewNotes = (props) => {
                                                     placeholder="Tag"
                                                 />
                                             </div>
-                                            <button type="submit"  className="btn btn-primary w-100 ">Apply</button>
-                                            <button type="reset" onClick={clearit} className="btn btn-primary w-100 mt-2">Clear</button>
-                                         
+                                            <button type="submit" className="btn btn-primary w-100 ">Apply</button>
+                                            <button type="button" onClick={handleClear} className="btn btn-primary w-100 mt-2">Clear</button>
+
                                         </form>
                                     </div>
                                     <div className="col-lg-9 ">
@@ -191,41 +183,42 @@ const ViewNotes = (props) => {
 
 
 
+
+
+
+                                                {filternote.map((val) => (
+                                                    val && val._id &&(
                                                     
+                                                        <div key={val._id} className=" col-sm-6 col-xs-12 col-lg-4 col-md-4 col-xl-3 mb-3">
+                                                            <div className="card h-100 shadow" style={{minHeight:"200px",maxHeight:"300px"}}>
+                                                                <div className="card-header border-light">
+                                                                    <Link to={`/${val._id}`} onClick={updateItEdit} className="card-link btn btn-sm float-end "  ><i className="fa-solid fa-pen"  ></i></Link>
+                                                                    <h5 className="card-title">{val.title}</h5>
+                                                                    <h6 className="card-subtitle mb-2 text-body-secondary">{val.tag}</h6>
+                                                                </div>
+                                                                <div className="card-body" >
+                                                                    <p className="card-text">{val.description}</p>
+                                                                </div>
+                                                                <div className="card-footer border-light bg-white ">
 
-
-                                                    {filternotes.map((val) => (
-                                                        <>
-                                                            <div key={val._id} className=" col-sm-6 col-xs-12 col-lg-4 col-md-4 col-xl-3 mb-3">
-                                                                <div className="card h-100 shadow">
-                                                                    <div className="card-header border-light">
-                                                                        <Link to={`/${val._id}`} onClick={() => { props.setShow(true) }} className="card-link btn btn-sm float-end "  ><i className="fa-solid fa-pen"  ></i></Link>
-                                                                        <h5 className="card-title">{val.title}</h5>
-                                                                        <h6 className="card-subtitle mb-2 text-body-secondary">{val.tag}</h6>
-                                                                    </div>
-                                                                    <div className="card-body" >
-                                                                        <p className="card-text">{val.description}</p>
-                                                                    </div>
-                                                                    <div className="card-footer border-light bg-white ">
-
-                                                                        <Link to='/' onClick={() => handleDelete(val._id)} className="card-link btn btn-sm"><i className="fa-solid fa-trash"></i></Link>
-                                                                        <div className="float-end ">{new Date(val.date).toDateString()}</div>
-                                                                    </div>
+                                                                    <Link to='/' onClick={() =>{ handleDelete(val._id)}} className="card-link btn btn-sm"><i className="fa-solid fa-trash"></i></Link>
+                                                                    <div className="float-end ">{new Date(val.date).toDateString()}</div>
                                                                 </div>
                                                             </div>
-                                                        </>
+                                                        </div>
+                                                    )))
 
-                                                    )
+                                                }
 
 
-                                                    )}
+
 
                                                 <Link className=" col-sm-6 col-xs-12 col-lg-4 col-xl-3 col-md-4 mb-3 text-decoration-none " onClick={addNote}  >
                                                     <div className="card bg-light shadow h-100" style={{ borderStyle: 'dashed' }}  >
 
                                                         <div className="card-body  d-flex justify-content-center  align-items-center">
                                                             {/* <Link className=" text-decoration-none " onClick={addNote} to='/addNote' > */}
-                                                                 <i className="fa-solid fa-square-plus fa-lg "></i>
+                                                            <i className="fa-solid fa-square-plus fa-lg "></i>
 
                                                             {/* </Link> */}
                                                         </div>
@@ -240,7 +233,7 @@ const ViewNotes = (props) => {
                         </div>
 
 
-)}
+                )}
             <div>{error}</div>
 
 

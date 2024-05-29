@@ -1,0 +1,9 @@
+.card-text {
+    max-height: 100px; /* Adjust this value as needed */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Number of lines before truncating */
+    -webkit-box-orient: vertical;
+  }
+  
