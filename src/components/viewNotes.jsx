@@ -117,7 +117,7 @@ const ViewNotes = (props) => {
             }
         }
         setUp()
-    }, [token]
+    }, [token,setFilter,setNote]
     )
 
     const handleClear = () => {
