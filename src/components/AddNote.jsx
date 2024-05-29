@@ -25,7 +25,7 @@ const AddNote = (props) => {
     const res=await result.json()
     setFilter(res.note1);
     setNote(res.note1)
-    console.log(res.note1);
+  
     let existingItem={}
     existingItem.notes=note;
     localStorage.setItem('notes',JSON.stringify(existingItem))
