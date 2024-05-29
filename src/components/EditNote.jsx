@@ -31,8 +31,8 @@ const EditNote = (props) => {
             const result=await fetch(`https://notebookbackend-flame.vercel.app/notes/updateNotes/${id}`, { method: 'PUT', headers: { 'Content-Type': 'Application/json', 'Authorization': `${JSON.parse(localStorage.getItem('token'))}` }, body: JSON.stringify({ title, description, tag }) })
 
             const res=await result.json()
-            setNote(res.note)
-            setFilter(res.note)
+            setNote(res.notes)
+            setFilter(res.notes)
             let existingItem;
             existingItem.notes=note
             localStorage.setItem('notes',JSON.stringify(existingItem))
