@@ -12,7 +12,7 @@ const ViewNotes = (props) => {
     const [fetching, setFetching] = useState(true)
     const { token } = useContext(loggedInContext)
     const { note, setNote } = useContext(notecontext)
-    const{filternote,setFilter}=useContext(filterContext)
+    const { filternote, setFilter } = useContext(filterContext)
 
     const addNote = (event) => {
         event.preventDefault()
@@ -33,21 +33,21 @@ const ViewNotes = (props) => {
                 throw new Error('Error fetching filteredData')
             }
             const result = await res.json()
-            
+
             let existingItem = JSON.parse(localStorage.getItem('notes')) || { notes: [] };
-            
+
             // Update existingItem with the fetched notes
             existingItem.notes = result.notes;
-            
+
             // Update localStorage with the updated existingItem
-            
+
             localStorage.setItem('notes', JSON.stringify(existingItem));
-            
+
             setNote(result.notes)
             // Set the filteredData state with the fetched notes
             setFilter(result.notes);
             setFetching(false)
-            
+
         }
         catch (err) {
             setError(err)
@@ -61,7 +61,7 @@ const ViewNotes = (props) => {
     const handleDelete = async (id) => {
         try {
             await fetch(`https://notebookbackend-flame.vercel.app/notes/deleteNotes/${id}`, { method: "DELETE", headers: { 'Content-Type': 'Application/json', 'Authorization': `${token}` } })
-            
+
             for (let i = 0; i < filternote.length; i++) {
                 if (note[i]._id === id) {
                     JSON.parse(localStorage.getItem('notes')).notes.splice(i, 1)
@@ -73,39 +73,70 @@ const ViewNotes = (props) => {
         catch (err) {
             setError(err)
         }
-        
-        
-        
-        
-        
+
+
+
+
+
 
     }
 
-    
-    const updateItEdit=()=>{
+
+    const updateItEdit = () => {
         props.setShow(true);
     }
-    
-    
-    useEffect(fetchData, [token])
-    
-    const handleClear=()=>{
-         setFormData({title:'',tag:''})
-         setFilter(note)
+
+
+
+    useEffect(() => {
+        async function setUp() {
+            try {
+                const res = await fetch('https://notebookbackend-flame.vercel.app/notes/fetchNotes', { method: "GET", headers: { 'Content-Type': 'Application/json', 'Authorization': `${token}` } })
+                if (!res.ok) {
+                    throw new Error('Error fetching filteredData')
+                }
+                const result = await res.json()
+
+                let existingItem = JSON.parse(localStorage.getItem('notes')) || { notes: [] };
+
+                // Update existingItem with the fetched notes
+                existingItem.notes = result.notes;
+
+                // Update localStorage with the updated existingItem
+
+                localStorage.setItem('notes', JSON.stringify(existingItem));
+
+                setNote(result.notes)
+                // Set the filteredData state with the fetched notes
+                setFilter(result.notes);
+                setFetching(false)
+
+            }
+            catch (err) {
+                setError(err)
+            }
+        }
+        setUp()
+    }, [token]
+    )
+
+    const handleClear = () => {
+        setFormData({ title: '', tag: '' })
+        setFilter(note)
     }
-    
+
     const handleSubmit = (e) => {
         // e.preventDefault();
         // Handle form submission logic here
-       
 
-            e.preventDefault();
-            const temp = note.filter(note =>
-                (formData.title === '' || note.title.toLowerCase().includes(formData.title.toLowerCase())) &&
-                (formData.tag === '' || note.tag.toLowerCase().includes(formData.tag.toLowerCase()))
-            );
-            setFilter(temp);
-    
+
+        e.preventDefault();
+        const temp = note.filter(note =>
+            (formData.title === '' || note.title.toLowerCase().includes(formData.title.toLowerCase())) &&
+            (formData.tag === '' || note.tag.toLowerCase().includes(formData.tag.toLowerCase()))
+        );
+        setFilter(temp);
+
 
 
     };
@@ -127,7 +158,7 @@ const ViewNotes = (props) => {
                         </div>
                     </div>
                 ) : (
-                    filternote.length===0 ? (
+                    filternote.length === 0 ? (
                         <div className="alert alert-info text-center" role="alert">
                             Your notebook is empty. <Link to="/addnote" className="alert-link">Add a note</Link>
                         </div>
@@ -183,10 +214,10 @@ const ViewNotes = (props) => {
 
 
                                                 {filternote.map((val) => (
-                                                    val && val._id &&(
-                                                    
+                                                    val && val._id && (
+
                                                         <div key={val._id} className=" col-sm-6 col-xs-12 col-lg-4 col-md-4 col-xl-3 mb-3">
-                                                            <div className="card h-100 shadow" style={{minHeight:"200px",maxHeight:"300px"}}>
+                                                            <div className="card h-100 shadow" style={{ minHeight: "200px", maxHeight: "300px" }}>
                                                                 <div className="card-header border-light">
                                                                     <Link to={`/${val._id}`} onClick={updateItEdit} className="card-link btn btn-sm float-end "  ><i className="fa-solid fa-pen"  ></i></Link>
                                                                     <h5 className="card-title">{val.title}</h5>
@@ -197,7 +228,7 @@ const ViewNotes = (props) => {
                                                                 </div>
                                                                 <div className="card-footer border-light bg-white ">
 
-                                                                    <Link to='/' onClick={() =>{ handleDelete(val._id)}} className="card-link btn btn-sm"><i className="fa-solid fa-trash"></i></Link>
+                                                                    <Link to='/' onClick={() => { handleDelete(val._id) }} className="card-link btn btn-sm"><i className="fa-solid fa-trash"></i></Link>
                                                                     <div className="float-end ">{new Date(val.date).toDateString()}</div>
                                                                 </div>
                                                             </div>
