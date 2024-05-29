@@ -87,11 +87,7 @@ const ViewNotes = (props) => {
     }
     
     
-    useEffect(() => {
-        fetchData()
-        
-        
-    }, [token])
+    useEffect(fetchData, [token])
     
     const handleClear=()=>{
          setFormData({title:'',tag:''})
