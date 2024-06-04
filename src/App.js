@@ -1,5 +1,5 @@
 import './App.css';
-import "bootstrap/dist/css/bootstrap.min.css";
+
 import Navbar from './components/Navbar';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
