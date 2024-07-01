@@ -57,7 +57,7 @@ export default function ViewNote(props) {
       }
     }
     fetchData()
-  }, token)
+  }, [token,setFilter,setNote])
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
