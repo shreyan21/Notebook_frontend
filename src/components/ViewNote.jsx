@@ -32,29 +32,32 @@ export default function ViewNote(props) {
     tag: ''
   });
 
-  async function fetchData() {
-    try {
-      const res = await fetch('https://notebookbackend-flame.vercel.app/notes/fetchNotes', {
-        method: "GET",
-        headers: { 'Content-Type': 'Application/json', 'Authorization': `${token}` }
-      });
-      if (!res.ok) {
-        throw new Error('Error fetching filteredData');
-      }
-      const result = await res.json();
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch('https://notebookbackend-flame.vercel.app/notes/fetchNotes', {
+          method: "GET",
+          headers: { 'Content-Type': 'Application/json', 'Authorization': `${token}` }
+        });
+        if (!res.ok) {
+          throw new Error('Error fetching filteredData');
+        }
+        const result = await res.json();
 
-      let existingItem = JSON.parse(localStorage.getItem('notes')) || { notes: [] };
-      existingItem.notes = result.notes;
-      localStorage.setItem('notes', JSON.stringify(existingItem));
-      setNote(result.notes);
-      setFilter(result.notes);
-      setFetching(false);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setBackdrop(false);
+        let existingItem = JSON.parse(localStorage.getItem('notes')) || { notes: [] };
+        existingItem.notes = result.notes;
+        localStorage.setItem('notes', JSON.stringify(existingItem));
+        setNote(result.notes);
+        setFilter(result.notes);
+        setFetching(false);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setBackdrop(false);
+      }
     }
-  }
+    fetchData()
+  }, token)
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -80,9 +83,7 @@ export default function ViewNote(props) {
     props.setShow(true);
   };
 
-  useEffect(() => {
-    fetchData();
-  }, [token,fetchData]);
+
 
   const handleClear = () => {
     setFormData({ title: '', tag: '' });
@@ -147,7 +148,7 @@ export default function ViewNote(props) {
           sx={{ mr: 2, mt: 8, ml: 0, position: 'fixed' }}
         >
           {/* <MenuIcon /> */}
-          <i className="fa-solid fa-filter fa-sm" style={{color: "#74C0FC"}}></i>
+          <i className="fa-solid fa-filter fa-sm" style={{ color: "#74C0FC" }}></i>
         </IconButton>
       </Hidden>
       <Box component="nav">
