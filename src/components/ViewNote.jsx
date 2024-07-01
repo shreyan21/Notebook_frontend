@@ -82,7 +82,7 @@ export default function ViewNote(props) {
 
   useEffect(() => {
     fetchData();
-  }, [token]);
+  }, [token,fetchData]);
 
   const handleClear = () => {
     setFormData({ title: '', tag: '' });
