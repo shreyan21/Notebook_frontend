@@ -56,8 +56,9 @@ const SignIn = (props) => {
                 localStorage.setItem('token', JSON.stringify(result.authtoken))
                 setToken(result.authtoken)
                 const decode=jwtDecode(result.authtoken)
-                localStorage.setItem('image',JSON.stringify(decode.user.image))
-                setImg(decode.user.image)
+                localStorage.setItem('image',JSON.stringify(decode.data.user.image))
+                setImg(decode.data.user.image)
+                // console.log(decode.data.user.image);
                 navigate('/')
                 
                   props.setOpen(true);

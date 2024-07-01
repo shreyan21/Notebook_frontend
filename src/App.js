@@ -53,7 +53,6 @@ function App() {
                   <Route exact path='/signup' element={<SignUp show={show} setShow={setShow} />} />
                 </Routes>
               </div>
-              {/* {token && < Options/>} */}
               <Footer />
 
             </imagecontext.Provider>
