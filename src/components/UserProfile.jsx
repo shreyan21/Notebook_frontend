@@ -22,7 +22,7 @@ function UserProfile(props) {
     const uploadImage = async (file) => {
         const formData = new FormData()
         formData.append('image', file)
-        const response = await fetch('http://localhost:3001/auth/imgupdate', {
+        const response = await fetch('https://notebookbackend-flame.vercel.app/auth/imgupdate', {
             method: 'PUT',
             headers: {
                 'Authorization': `${token}`
@@ -50,7 +50,7 @@ function UserProfile(props) {
     }
     const removeuser = async (event) => {
         event.preventDefault()
-        await fetch('http://localhost:3001/auth/remove', { method: 'DELETE', headers: { 'Content-Type': 'application/json', 'Authorization': `${token}` }, body: JSON.stringify({ id: data.user.id }) })
+        await fetch('https://notebookbackend-flame.vercel.app/auth/remove', { method: 'DELETE', headers: { 'Content-Type': 'application/json', 'Authorization': `${token}` }, body: JSON.stringify({ id: data.user.id }) })
         localStorage.clear()
         setToken(null)
         navigate('/')
@@ -75,7 +75,7 @@ function UserProfile(props) {
                         type='button'
                         onClick={handleImageUpload}
                         className='flex-center absolute bottom-12 right-14 h-9 w-9 rounded-full'>
-                        <Avatar src={`http://localhost:3001/images/${img}`} />
+                        <Avatar src={`https://notebookbackend-flame.vercel.app/images/${img}`} />
                     </button>
                     <input
                         type="file"

@@ -59,7 +59,7 @@ const SignUpForm = (props) => {
       formData.append('name',data.name)
       formData.append('password',data.password)
       formData.append('email',data.email)
-      const response = await fetch('http://localhost:3001/auth/create', {
+      const response = await fetch('https://notebookbackend-flame.vercel.app/auth/create', {
         method: 'POST',
         
         

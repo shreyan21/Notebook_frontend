@@ -1,9 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-<<<<<<< HEAD
 import {  useNavigate, useParams } from "react-router-dom";
-=======
-import { json, useNavigate, useParams } from "react-router-dom";
->>>>>>> 11e5fa5 (Imroved UI)
 import Modal from 'react-bootstrap/Modal'
 import { notecontext } from "../context/NoteContext";
 import { filterContext } from "../context/FilteredContext";
@@ -27,25 +23,14 @@ const EditNote = (props) => {
     const [tag, setTag] = useState('')
     const [description, setDescription] = useState('')
 
-<<<<<<< HEAD
     useEffect(() => {  setTitle(val.title); setTag(val.tag); setDescription(val.description) }, [val.title,val.description,val.tag])
-=======
-    useEffect(() => {  setTitle(val.title); setTag(val.tag); setDescription(val.description) }, [])
->>>>>>> 11e5fa5 (Imroved UI)
 
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
-<<<<<<< HEAD
             const result=await fetch(`https://notebookbackend-flame.vercel.app/notes/updateNotes/${id}`, { method: 'PUT', headers: { 'Content-Type': 'Application/json', 'Authorization': `${JSON.parse(localStorage.getItem('token'))}` }, body: JSON.stringify({ title, description, tag }) })
 
             const res=await result.json()
-=======
-            const result=await fetch(`http://localhost:3001/notes/updateNotes/${id}`, { method: 'PUT', headers: { 'Content-Type': 'Application/json', 'Authorization': `${JSON.parse(localStorage.getItem('token'))}` }, body: JSON.stringify({ title, description, tag }) })
-
-            const res=await result.json()
-            
->>>>>>> 11e5fa5 (Imroved UI)
             setNote(res.notes)
             setFilter(res.notes)
             let existingItem;

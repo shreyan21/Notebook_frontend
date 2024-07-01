@@ -174,7 +174,7 @@ useEffect(()=>{
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar src={img==null?null: `http://localhost:3001/images/${img}`}/>
+                <Avatar src={img==null?null: `https://notebookbackend-flame.vercel.app/images/${img}`}/>
               </IconButton>
             </Tooltip>
             <Menu

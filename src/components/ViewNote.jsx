@@ -34,7 +34,7 @@ export default function ViewNote(props) {
 
   async function fetchData() {
     try {
-      const res = await fetch('http://localhost:3001/notes/fetchNotes', {
+      const res = await fetch('https://notebookbackend-flame.vercel.app/notes/fetchNotes', {
         method: "GET",
         headers: { 'Content-Type': 'Application/json', 'Authorization': `${token}` }
       });
@@ -62,7 +62,7 @@ export default function ViewNote(props) {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:3001/notes/deleteNotes/${id}`, {
+      await fetch(`https://notebookbackend-flame.vercel.app/notes/deleteNotes/${id}`, {
         method: "DELETE",
         headers: { 'Content-Type': 'Application/json', 'Authorization': `${token}` }
       });

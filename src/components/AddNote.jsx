@@ -10,11 +10,7 @@ const AddNote = (props) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [tag, setTag] = useState('');
-<<<<<<< HEAD
-  const {setFilter}=useContext(filterContext)
-=======
   const {filter,setFilter}=useContext(filterContext)
->>>>>>> 11e5fa5 (Imroved UI)
   const {note,setNote}=useContext(notecontext)
   props.setShow(true)
   const navigate = useNavigate()
@@ -23,21 +19,13 @@ const AddNote = (props) => {
     event.preventDefault()
 
 
-<<<<<<< HEAD
-    const result=await fetch('https://notebookbackend-flame.vercel.app/notes/addNotes', {
-=======
-    const result=await fetch('http://localhost:3001/notes/addNotes', {
->>>>>>> 11e5fa5 (Imroved UI)
+    const result=await fetch('https://notebookbackend-flame.vercel.app//notes/addNotes', {
       method: 'POST', headers: { 'Content-Type': 'Application/json', 'Authorization': `${JSON.parse(localStorage.getItem('token'))}` }, body: JSON.stringify({ title, description, tag })
     })
     const res=await result.json()
     setFilter(res.note1);
     setNote(res.note1)
-<<<<<<< HEAD
   
-=======
-    console.log(res.note1);
->>>>>>> 11e5fa5 (Imroved UI)
     let existingItem={}
     existingItem.notes=note;
     localStorage.setItem('notes',JSON.stringify(existingItem))
