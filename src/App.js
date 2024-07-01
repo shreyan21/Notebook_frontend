@@ -13,6 +13,11 @@ import Password from './components/Password.jsx';
 import LandingPage from './components/Landingpage.jsx';
 import UserProfile from './components/UserProfile.jsx';
 import { filterContext } from './context/FilteredContext.js';
+import { Grow, Snackbar } from '@mui/material';
+import { imagecontext } from './context/ImageContext.js';
+import ResponsiveAppBar from './components/ResponsiveAppBar.jsx';
+import ViewNote from './components/ViewNote.jsx';
+import Footer from './components/Footer.jsx';
 function App() {
 
   const [show, setShow] = useState(false)
