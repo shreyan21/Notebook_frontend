@@ -6,7 +6,7 @@ function LandingPage(props) {
     }
    
     return (
-        <div className="container-fluid text-center py-5">
+        <div className="container-fluid text-center py-5 mt-5">
             <div className="row">
                 <div className="col-md-6 offset-md-3">
                     <h1 className="mb-4">Welcome to My Notebook</h1>

@@ -8,12 +8,14 @@ const Password = (props) => {
     const[error,setError]=useState('')
     const[confirmPassword,setConfirmpassword]=useState('')
     const [showPassword, setShowPassword] = useState(false)
+    const[showConfirmPassword,setShowConfirmPassword]=useState(false)
     const changeit1 = (event) => {
         setPassword(event.target.value)
     }
     const changeit2 = (event) => {
         setConfirmpassword(event.target.value)
     }
+
 
     const submitreset = async (event) => {
         event.preventDefault()
@@ -37,7 +39,7 @@ const Password = (props) => {
             setError('Password must contain at least one special character');
           }
         else{
-        await fetch('https://notebookbackend-flame.vercel.app/auth/resetPassword', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password, email }) })
+        await fetch('http://localhost:3001/auth/resetPassword', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password, email }) })
         navigate('/signin')
         }
     }
@@ -74,14 +76,14 @@ const Password = (props) => {
                         <div className="mb-3">
                             <label htmlFor="password" className="form-label">Password</label>
                             <div className="input-group">
-                                <input type={showPassword ? "text" : "password"} className="form-control" id="password" name="password" value={confirmPassword} onChange={changeit2} minLength="8" required />
-                                <button className="btn btn-outline-secondary" type="button" onClick={() => setShowPassword(!showPassword)}>
-                                    <i className={showPassword ? "far fa-eye" : "far fa-eye-slash"}></i>
+                                <input type={showConfirmPassword ? "text" : "password"} className="form-control" id="password" name="password" value={confirmPassword} onChange={changeit2} minLength="8" required />
+                                <button className="btn btn-outline-secondary" type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                                    <i className={showConfirmPassword ? "far fa-eye" : "far fa-eye-slash"}></i>
                                 </button>
 
                             </div>
                         </div>
-                        <button type="submit" className="btn btn-sm  btn-dark mt-2 w-100" style={{ height: '40px' }} >Sign In</button>
+                        <button type="submit" className="btn btn-sm  btn-dark mt-2 w-100" style={{ height: '40px' }} >Reset</button>
                         <div style={{color:'red', textAlign:'center'}}>{error}</div>
                     </form>
                 </div>

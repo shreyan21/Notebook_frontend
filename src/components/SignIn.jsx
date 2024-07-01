@@ -2,6 +2,9 @@ import { useState, useContext } from "react"
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate, Link } from "react-router-dom"
 import { loggedInContext } from "../context/LoginContext.js"
+import { jwtDecode } from "jwt-decode";
+import { imagecontext } from "../context/ImageContext.js";
+
 const SignIn = (props) => {
 
     const [formData, setData] = useState({ email: '', password: '' })
@@ -9,6 +12,13 @@ const SignIn = (props) => {
     const [reset, setReset] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const { setToken } = useContext(loggedInContext)
+    const {setImg}=useContext(imagecontext)
+
+
+     
+
+
+
     const navigate = useNavigate()
 
 
@@ -32,7 +42,7 @@ const SignIn = (props) => {
 
 
         try {
-            const res = await fetch('https://notebookbackend-flame.vercel.app/auth/login', {
+            const res = await fetch('http://localhost:3001/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
@@ -40,12 +50,17 @@ const SignIn = (props) => {
 
 
             let result = await res.json()
+
             if (res.ok) {
 
                 localStorage.setItem('token', JSON.stringify(result.authtoken))
-
                 setToken(result.authtoken)
+                const decode=jwtDecode(result.authtoken)
+                localStorage.setItem('image',JSON.stringify(decode.user.image))
+                setImg(decode.user.image)
                 navigate('/')
+                
+                  props.setOpen(true);
 
 
             }
@@ -73,7 +88,8 @@ const SignIn = (props) => {
                 show={props.show}
                 onHide={() => { props.setShow(false); navigate('/') }}
                 dialogClassName="modal-90w"
-                aria-labelledby="example-custom-modal-styling-title"
+                aria-labelledby="example-custom-modal-styling-title" 
+                style={{zIndex:'1500'}}
             >
                 <Modal.Header closeButton className="mb-0"
                 >

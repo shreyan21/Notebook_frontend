@@ -6,4 +6,16 @@
     -webkit-line-clamp: 3; /* Number of lines before truncating */
     -webkit-box-orient: vertical;
   }
+<<<<<<< HEAD
   
+=======
+  .container-fluid.d-flex.flex-column.h-100 {
+    height: 100vh; /* Ensure the container takes the full height of the viewport */
+}
+
+html, body {
+    height: 100%;
+}
+
+
+>>>>>>> 11e5fa5 (Imroved UI)
