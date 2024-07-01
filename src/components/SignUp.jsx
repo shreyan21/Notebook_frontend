@@ -130,7 +130,7 @@ const SignUpForm = (props) => {
                 <input type="file" className="form-control"  id="image" name="file" onChange={handleFileChange} accept="image/*" />
               </div>
               <button type="submit" style={{ height: '40px' }} className="btn btn-sm btn-dark mt-2 w-100">Sign Up</button>
-              <div style={{ color: "red" }}>{errors.fulfil == '' ?'': errors.fulfil}</div>
+              <div style={{ color: "red" }}>{errors.fulfil === '' ?'': errors.fulfil}</div>
 
             </form>) : message}
 

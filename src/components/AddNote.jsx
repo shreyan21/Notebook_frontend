@@ -10,7 +10,7 @@ const AddNote = (props) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [tag, setTag] = useState('');
-  const {filter,setFilter}=useContext(filterContext)
+  const {setFilter}=useContext(filterContext)
   const {note,setNote}=useContext(notecontext)
   props.setShow(true)
   const navigate = useNavigate()
