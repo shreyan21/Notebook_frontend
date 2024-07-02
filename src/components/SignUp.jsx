@@ -59,11 +59,12 @@ const SignUpForm = (props) => {
       formData.append('name',data.name)
       formData.append('password',data.password)
       formData.append('email',data.email)
-      const response = await fetch('https://notebookbackend-flame.vercel.app/auth/create', {
+      const formdata={'name':data.name,'email':data.email,'password':data.password}
+      const response = await fetch('https://notebook-backend-nine.vercel.app/auth/create', {
         method: 'POST',
         
         
-         body:formData})
+         body:JSON.stringify(formdata)})
 
         
 

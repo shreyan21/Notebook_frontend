@@ -19,7 +19,7 @@ const AddNote = (props) => {
     event.preventDefault()
 
 
-    const result=await fetch('https://notebookbackend-flame.vercel.app//notes/addNotes', {
+    const result=await fetch('https://notebook-backend-nine.vercel.app//notes/addNotes', {
       method: 'POST', headers: { 'Content-Type': 'Application/json', 'Authorization': `${JSON.parse(localStorage.getItem('token'))}` }, body: JSON.stringify({ title, description, tag })
     })
     const res=await result.json()

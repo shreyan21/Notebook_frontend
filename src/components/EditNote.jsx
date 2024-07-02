@@ -28,7 +28,7 @@ const EditNote = (props) => {
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
-            const result=await fetch(`https://notebookbackend-flame.vercel.app/notes/updateNotes/${id}`, { method: 'PUT', headers: { 'Content-Type': 'Application/json', 'Authorization': `${JSON.parse(localStorage.getItem('token'))}` }, body: JSON.stringify({ title, description, tag }) })
+            const result=await fetch(`https://notebook-backend-nine.vercel.app/notes/updateNotes/${id}`, { method: 'PUT', headers: { 'Content-Type': 'Application/json', 'Authorization': `${JSON.parse(localStorage.getItem('token'))}` }, body: JSON.stringify({ title, description, tag }) })
 
             const res=await result.json()
             setNote(res.notes)

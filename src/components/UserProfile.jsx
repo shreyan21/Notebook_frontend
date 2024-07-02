@@ -22,7 +22,7 @@ function UserProfile(props) {
     const uploadImage = async (file) => {
         const formData = new FormData()
         formData.append('image', file)
-        const response = await fetch('https://notebookbackend-flame.vercel.app/auth/imgupdate', {
+        const response = await fetch('https://notebook-backend-nine.vercel.app/auth/imgupdate', {
             method: 'PUT',
             headers: {
                 'Authorization': `${token}`
