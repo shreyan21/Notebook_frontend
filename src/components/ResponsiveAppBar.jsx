@@ -75,9 +75,7 @@ function ResponsiveAppBar(props) {
         break;
     }
   };
-useEffect(()=>{
-  
-},[img])
+
   return (
     <AppBar position="fixed" sx={{ zIndex: theme => theme.zIndex.drawer + 1 }}>
       <Container maxWidth="xl">
@@ -173,7 +171,7 @@ useEffect(()=>{
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar sx={{ bgcolor: deepOrange[500] }}>
+                <Avatar sx={{ backgroundColor:"gray" }}>
                   R
                   </Avatar>
               </IconButton>
