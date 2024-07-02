@@ -2,7 +2,6 @@ import { useState, useContext } from "react"
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate, Link } from "react-router-dom"
 import { loggedInContext } from "../context/LoginContext.js"
-import { jwtDecode } from "jwt-decode";
 
 const SignIn = (props) => {
 
