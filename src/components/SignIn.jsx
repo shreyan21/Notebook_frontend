@@ -3,7 +3,6 @@ import Modal from 'react-bootstrap/Modal';
 import { useNavigate, Link } from "react-router-dom"
 import { loggedInContext } from "../context/LoginContext.js"
 import { jwtDecode } from "jwt-decode";
-import { imagecontext } from "../context/ImageContext.js";
 
 const SignIn = (props) => {
 
@@ -12,7 +11,7 @@ const SignIn = (props) => {
     const [reset, setReset] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const { setToken } = useContext(loggedInContext)
-    const {setImg}=useContext(imagecontext)
+    // const {setImg}=useContext(imagecontext)
 
 
      
@@ -56,9 +55,9 @@ const SignIn = (props) => {
                 localStorage.setItem('token', JSON.stringify(result.authtoken))
                 setToken(result.authtoken)
                 const decode=jwtDecode(result.authtoken)
-                localStorage.setItem('image',JSON.stringify(decode.user.image))
-                setImg(decode.user.image)
-                console.log(decode.user.image);
+                // localStorage.setItem('image',JSON.stringify(decode.user.image))
+                // setImg(decode.user.image)
+                // console.log(decode.user.image);
                 navigate('/')
                 
                   props.setOpen(true);

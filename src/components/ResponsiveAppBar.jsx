@@ -23,11 +23,11 @@ const settings = ['Profile', 'Logout'];
 const guestSettings = ['Sign In', 'Sign Up'];
 function ResponsiveAppBar(props) {
   const { token,setToken } = useContext(loggedInContext);
-  const {img,setImg}=useContext(imagecontext)  
+  // const {img,setImg}=useContext(imagecontext)  
   const handleClick = () => {
     // event.preventDefault()
     setToken(null)
-   setImg(null)
+  //  setImg(null)
     localStorage.clear()
     navigate('/')
   } 
