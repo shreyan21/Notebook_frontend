@@ -15,7 +15,6 @@ import { useContext } from 'react';
 import { loggedInContext } from '../context/LoginContext';
 import { useNavigate } from 'react-router-dom';
 import WbCloudyOutlinedIcon from '@mui/icons-material/WbCloudyOutlined';
-import { imagecontext } from '../context/ImageContext';
 import { useEffect } from 'react';
 
 const pages = ['About', 'Contacts'];
