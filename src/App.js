@@ -14,7 +14,6 @@ import LandingPage from './components/Landingpage.jsx';
 import UserProfile from './components/UserProfile.jsx';
 import { filterContext } from './context/FilteredContext.js';
 import { Grow, Snackbar } from '@mui/material';
-import { imagecontext } from './context/ImageContext.js';
 import ResponsiveAppBar from './components/ResponsiveAppBar.jsx';
 import ViewNote from './components/ViewNote.jsx';
 import Footer from './components/Footer.jsx';
@@ -31,7 +30,7 @@ function App() {
  
         
   const [filternote, setFilter] = useState([])
-  const [img, setImg] = useState(localStorage.getItem('image')?JSON.parse(localStorage.getItem('image')):null)
+  // const [img, setImg] = useState(localStorage.getItem('image')?JSON.parse(localStorage.getItem('image')):null)
   return (
     <>
       <Snackbar open={open} autoHideDuration={6000}  onClose={handleClose} message="Successfully logged In" TransitionComponent={Grow} />
@@ -39,7 +38,7 @@ function App() {
       <loggedInContext.Provider value={{ token, setToken }} >
         <notecontext.Provider value={{ note, setNote }}>
           <filterContext.Provider value={{ filternote, setFilter }}>
-            <imagecontext.Provider value={{ img, setImg }}>
+            {/* <imagecontext.Provider value={{ img, setImg }}> */}
               <ResponsiveAppBar setShow={setShow} />
               <div className='container mt-2'>
                 {!token && <LandingPage setShow={setShow} />}
@@ -55,7 +54,7 @@ function App() {
               </div>
               <Footer />
 
-            </imagecontext.Provider>
+            {/* </imagecontext.Provider> */}
           </filterContext.Provider>
         </notecontext.Provider>
       </loggedInContext.Provider >

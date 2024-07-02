@@ -3,7 +3,7 @@ import { loggedInContext } from '../context/LoginContext';
 import { jwtDecode } from 'jwt-decode';
 import Modal from 'react-bootstrap/Modal'
 import { useNavigate } from 'react-router-dom';
-import { Avatar } from '@mui/material';
+// import { Avatar } from '@mui/material';
 // import { imagecontext } from '../context/ImageContext';
 
 function UserProfile(props) {
