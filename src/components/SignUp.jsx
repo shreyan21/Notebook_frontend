@@ -9,7 +9,7 @@ const SignUpForm = (props) => {
     email: '',
     password: '',
     confirmPassword: '',
-    file: null
+    // file: null
 
   });
 
@@ -23,9 +23,9 @@ const SignUpForm = (props) => {
       [event.target.name]: event.target.value
     });
   };
-  const handleFileChange = (event) => {
-    setData({ ...data, file: event.target.files[0] })
-  }
+  // const handleFileChange = (event) => {
+  //   setData({ ...data, file: event.target.files[0] })
+  // }
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrors({})
@@ -54,15 +54,15 @@ const SignUpForm = (props) => {
       return;
     }
     try {
-      const formData = new FormData()
-      formData.append('image', data.file)
-      formData.append('name',data.name)
-      formData.append('password',data.password)
-      formData.append('email',data.email)
+      // const formData = new FormData()
+      // formData.append('image', data.file)
+      // formData.append('name',data.name)
+      // formData.append('password',data.password)
+      // formData.append('email',data.email)
       const formdata={'name':data.name,'email':data.email,'password':data.password}
       const response = await fetch('https://notebook-backend-nine.vercel.app/auth/create', {
         method: 'POST',
-        
+        headers:{'Content-Type':'application/json'},
         
          body:JSON.stringify(formdata)})
 
@@ -100,7 +100,7 @@ const SignUpForm = (props) => {
 
         <div className="container mt-1">
           {message === '' ? (
-            <form onSubmit={handleSubmit} method='POST' style={{ maxWidth: '400px', margin: '0 auto' }} encType='multipart/form-data'>
+            <form onSubmit={handleSubmit} method='POST' style={{ maxWidth: '400px', margin: '0 auto' }} >
               <div className="mb-1">
                 <label htmlFor="name" className="form-label">Name</label>
                 <input type="text" className="form-control" id="name" name="name" value={data.name} onChange={handleChange} required />
@@ -126,10 +126,10 @@ const SignUpForm = (props) => {
                 {errors.confirmPassword && <div className="invalid-feedback">{errors.confirmPassword}</div>}
 
               </div>
-              <div className="mb-3">
+              {/* <div className="mb-3">
                 <label htmlFor="image" className="form-label">Profile Image</label>
                 <input type="file" className="form-control"  id="image" name="file" onChange={handleFileChange} accept="image/*" />
-              </div>
+              </div> */}
               <button type="submit" style={{ height: '40px' }} className="btn btn-sm btn-dark mt-2 w-100">Sign Up</button>
               <div style={{ color: "red" }}>{errors.fulfil === '' ?'': errors.fulfil}</div>
 

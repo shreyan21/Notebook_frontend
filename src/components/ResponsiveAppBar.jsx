@@ -174,7 +174,9 @@ useEffect(()=>{
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar src={img==null?null: `https://notebook-backend-nine.vercel.app/images/${img}`}/>
+                <Avatar sx={{ bgcolor: deepOrange[500] }}>
+                  R
+                  </Avatar>
               </IconButton>
             </Tooltip>
             <Menu
