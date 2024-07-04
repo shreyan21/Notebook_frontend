@@ -3,7 +3,6 @@ import {  useContext, useState } from "react";
 import Modal from 'react-bootstrap/Modal'
 import { filterContext } from "../context/FilteredContext";
 import { notecontext } from "../context/NoteContext";
-// http://notebookbackend-flame.vercel.app
 const AddNote = (props) => {
 
 
@@ -19,7 +18,7 @@ const AddNote = (props) => {
     event.preventDefault()
 
 
-    const result=await fetch('https://notebook-backend-nine.vercel.app//notes/addNotes', {
+    const result=await fetch('https://notebook-backend-nine.vercel.app/notes/addNotes', {
       method: 'POST', headers: { 'Content-Type': 'Application/json', 'Authorization': `${JSON.parse(localStorage.getItem('token'))}` }, body: JSON.stringify({ title, description, tag })
     })
     const res=await result.json()
