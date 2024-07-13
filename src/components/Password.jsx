@@ -5,10 +5,10 @@ const Password = (props) => {
     const { email } = useParams()
     const navigate = useNavigate()
     const [password, setPassword] = useState('')
-    const[error,setError]=useState('')
-    const[confirmPassword,setConfirmpassword]=useState('')
+    const [error, setError] = useState('')
+    const [confirmPassword, setConfirmpassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
-    const[showConfirmPassword,setShowConfirmPassword]=useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const changeit1 = (event) => {
         setPassword(event.target.value)
     }
@@ -18,31 +18,44 @@ const Password = (props) => {
 
 
     const submitreset = async (event) => {
+
         event.preventDefault()
-        if(password!==confirmPassword)
-        {
+
+        if (password !== confirmPassword) {
             setError("Passwords do not match")
         }
         else if (password.length < 8) {
             setError('Password must be at least 6 characters long');
-          }
-         else if (!/[A-Z]/.test(password)) {
-           setError ('Password must contain at least one uppercase letter');
-          }
-          else if (!/[a-z]/.test(password)) {
-           setError('Password must contain at least one lowercase letter');
-          }
-         else if (!/[\d]/.test(password)) {
-          setError('Password must contain at least one digit');
-          }
-          else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+        }
+        else if (!/[A-Z]/.test(password)) {
+            setError('Password must contain at least one uppercase letter');
+        }
+        else if (!/[a-z]/.test(password)) {
+            setError('Password must contain at least one lowercase letter');
+        }
+        else if (!/[\d]/.test(password)) {
+            setError('Password must contain at least one digit');
+        }
+        else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
             setError('Password must contain at least one special character');
-          }
-        else{
-        await fetch('https://notebook-backend-virid.vercel.app/auth/resetPassword', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password, email }) })
-        navigate('/signin')
+        }
+        else {
+            await fetch('https://notebook-backend-virid.vercel.app/auth/resetPassword', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password, email }) })
+            navigate('/signin')
         }
     }
+    useEffect(() => {
+        async function check() {
+            const x = await fetch("https://notebook-backend-virid.vercel.app/auth/checkmail", { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email }) })
+             
+            const result=await x.text()
+            if(result==false){
+                navigate('/signin')
+
+            }
+
+        }
+    }, [])
     return (
 
         <Modal
@@ -71,7 +84,7 @@ const Password = (props) => {
                                 </button>
 
                             </div>
-                           
+
                         </div>
                         <div className="mb-3">
                             <label htmlFor="password" className="form-label">Password</label>
@@ -84,7 +97,7 @@ const Password = (props) => {
                             </div>
                         </div>
                         <button type="submit" className="btn btn-sm  btn-dark mt-2 w-100" style={{ height: '40px' }} >Reset</button>
-                        <div style={{color:'red', textAlign:'center'}}>{error}</div>
+                        <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>
                     </form>
                 </div>
             </Modal.Body >
