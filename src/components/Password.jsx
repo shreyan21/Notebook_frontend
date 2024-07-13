@@ -55,7 +55,7 @@ const Password = (props) => {
             }
 
         }
-    }, [])
+    }, [email])
     return (
 
         <Modal
