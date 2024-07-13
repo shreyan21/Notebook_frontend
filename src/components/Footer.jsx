@@ -1,27 +1,19 @@
 
 const Footer = () => {
     return (
-        <footer className="text-center bg-body-tertiary fixed-bottom" style={{zIndex:'2000'}} >
+        <footer className="text-center bg-body-tertiary fixed-bottom"  >
             <div className="container  pt-3">
                 <section className="mb-3">
                     <a
                         data-mdb-ripple-init
                         className="btn btn-link btn-floating btn-lg text-body m-1"
-                        href="#!"
+                        href="https://www.linkedin.com/in/utkarsh-singh-rajawat-b784b21aa/"
                         role="button"
                         data-mdb-ripple-color="dark"
-                    ><i className="fab fa-facebook-f"></i
+                    ><i className="fab fa-linkedin"></i
                     ></a>
 
-                    <a
-                        data-mdb-ripple-init
-                        className="btn btn-link btn-floating btn-lg text-body m-1"
-                        href="#!"
-                        role="button"
-                        data-mdb-ripple-color="dark"
-                    ><i className="fab fa-twitter"></i
-                    ></a>
-
+                  
                     <a
                         data-mdb-ripple-init
                         className="btn btn-link btn-floating btn-lg text-body m-1"
@@ -40,14 +32,7 @@ const Footer = () => {
                     ><i className="fab fa-instagram"></i
                     ></a>
 
-                    <a
-                        data-mdb-ripple-init
-                        className="btn btn-link btn-floating btn-lg text-body m-1"
-                        href="#!"
-                        role="button"
-                        data-mdb-ripple-color="dark"
-                    ><i className="fab fa-linkedin"></i
-                    ></a>
+                  
                     <a
                         data-mdb-ripple-init
                         className="btn btn-link btn-floating btn-lg text-body m-1"

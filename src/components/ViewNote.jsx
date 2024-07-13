@@ -104,7 +104,7 @@ export default function ViewNote(props) {
 
   const drawer = (
     <Box sx={{ overflow: 'auto' }}  >
-      <form onSubmit={handleSubmit} style={{ padding: '16px' }} className="mt-5">
+      <form onSubmit={handleSubmit} style={{ padding: '16px'}} className="mt-5">
         <div className="mb-3">
           <label htmlFor="titleInput" className="form-label">Title:</label>
           <input

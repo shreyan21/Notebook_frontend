@@ -39,7 +39,7 @@ function LandingPage(props) {
                 </div>
             </div> */}
               
-            <div className="row mt-3">
+            <div className="row mt-3 mb-5">
                 <div className="col-md-6 offset-md-3">
                     <p className="text-muted mt-5">Don't have an account? <br /><Link to="/signup" className=' text-decoration-none' onClick={setSignUp}>Sign up here</Link>.</p>
                 </div>
