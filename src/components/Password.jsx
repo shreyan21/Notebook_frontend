@@ -49,7 +49,7 @@ const Password = (props) => {
             const x = await fetch("https://notebook-backend-virid.vercel.app/auth/checkmail", { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email }) })
              
             const result=await x.text()
-            if(result==false){
+            if(result===false){
                 navigate('/signin')
 
             }
