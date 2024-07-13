@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import Modal from 'react-bootstrap/Modal'
 const Password = (props) => {
