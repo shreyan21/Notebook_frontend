@@ -39,7 +39,7 @@ const Password = (props) => {
             setError('Password must contain at least one special character');
           }
         else{
-        await fetch('https://notebook-backend-nine.vercel.app/auth/resetPassword', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password, email }) })
+        await fetch('https://notebook-backend-virid.vercel.app/auth/resetPassword', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password, email }) })
         navigate('/signin')
         }
     }

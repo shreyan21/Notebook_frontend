@@ -54,13 +54,9 @@ const SignUpForm = (props) => {
       return;
     }
     try {
-      // const formData = new FormData()
-      // formData.append('image', data.file)
-      // formData.append('name',data.name)
-      // formData.append('password',data.password)
-      // formData.append('email',data.email)
+     
       const formdata={'name':data.name,'email':data.email,'password':data.password}
-      const response = await fetch('https://notebook-backend-nine.vercel.app/auth/create', {
+      const response = await fetch('https://notebook-backend-virid.vercel.app/auth/create', {
         method: 'POST',
         headers:{'Content-Type':'application/json'},
         
@@ -126,10 +122,7 @@ const SignUpForm = (props) => {
                 {errors.confirmPassword && <div className="invalid-feedback">{errors.confirmPassword}</div>}
 
               </div>
-              {/* <div className="mb-3">
-                <label htmlFor="image" className="form-label">Profile Image</label>
-                <input type="file" className="form-control"  id="image" name="file" onChange={handleFileChange} accept="image/*" />
-              </div> */}
+             
               <button type="submit" style={{ height: '40px' }} className="btn btn-sm btn-dark mt-2 w-100">Sign Up</button>
               <div style={{ color: "red" }}>{errors.fulfil === '' ?'': errors.fulfil}</div>
 
