@@ -10,10 +10,10 @@ const SignIn = (props) => {
     const [reset, setReset] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const { setToken } = useContext(loggedInContext)
-    // const {setImg}=useContext(imagecontext)
+    const [loading, setLoading] = useState(false);
 
 
-     
+
 
 
 
@@ -37,6 +37,8 @@ const SignIn = (props) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setLoading(true);
+
 
 
         try {
@@ -58,8 +60,8 @@ const SignIn = (props) => {
                 // setImg(decode.user.image)
                 // console.log(decode.user.image);
                 navigate('/')
-                
-                  props.setOpen(true);
+
+                props.setOpen(true);
 
 
             }
@@ -74,6 +76,9 @@ const SignIn = (props) => {
 
 
         }
+        finally {
+            setLoading(false)
+        }
     }
 
     return (
@@ -81,14 +86,18 @@ const SignIn = (props) => {
 
 
 
-
+            {loading && (
+                <div className="d-flex justify-content-center align-items-center position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50" style={{ zIndex: 2000 }}>
+                    <Spinner animation="border" variant="primary" />
+                </div>
+            )}
 
             <Modal
                 show={props.show}
                 onHide={() => { props.setShow(false); navigate('/') }}
                 dialogClassName="modal-90w"
-                aria-labelledby="example-custom-modal-styling-title" 
-                style={{zIndex:'1500'}}
+                aria-labelledby="example-custom-modal-styling-title"
+                style={{ zIndex: '1500' }}
             >
                 <Modal.Header closeButton className="mb-0"
                 >
