@@ -50,7 +50,7 @@ const Password = (props) => {
              
             const result=await x.text()
             if(result===false){
-                navigate('/signin')
+                navigate(-1)
 
             }
 
