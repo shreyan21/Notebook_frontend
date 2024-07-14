@@ -20,14 +20,21 @@ const SignIn = (props) => {
     const navigate = useNavigate()
 
 
-    const emailWritten = (event) => {
+    const emailWritten = async (event) => {
         event.preventDefault()
         if (formData.email === '') {
             setError('Enter email first')
         }
-        else {
-            setReset(false)
-            navigate(`/password/${formData.email}`)
+        else if (formData.email !== '') {
+            const res = await fetch("https://notebook-backend-virid.vercel.app/auth/checkmail", { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: formData.email }) })
+            const result = await res.json()
+            if (result.exists === false) {
+                setError("User with this email does not exist")
+            }
+            else {
+                setReset(false)
+                navigate(`/password/${formData.email}`)
+            }
         }
     }
 
@@ -55,7 +62,7 @@ const SignIn = (props) => {
 
                 localStorage.setItem('token', JSON.stringify(result.authtoken))
                 setToken(result.authtoken)
-              
+
                 navigate('/')
 
                 props.setOpen(true);

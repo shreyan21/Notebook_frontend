@@ -44,20 +44,7 @@ const Password = (props) => {
             navigate('/signin')
         }
     }
-    useEffect(() => {
-        async function check() {
-            const x = await fetch("https://notebook-backend-virid.vercel.app/auth/checkmail", { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email }) })
-             
-            const result=await x.json()
-            console.log(result);
-            if(result.exists===false){
-                navigate(-1)
 
-            }
-
-        }
-        check()
-    }, [email,navigate])
     return (
 
         <Modal
@@ -65,6 +52,7 @@ const Password = (props) => {
             onHide={() => { props.setShow(false); navigate('/') }}
             dialogClassName="modal-90w"
             aria-labelledby="example-custom-modal-styling-title"
+            style={{zIndex:'1500'}}
         >
             <Modal.Header closeButton className="mb-0"
             >
