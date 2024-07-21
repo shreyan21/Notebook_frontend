@@ -3,6 +3,8 @@ import Modal from 'react-bootstrap/Modal';
 import { useNavigate, Link } from "react-router-dom"
 import { loggedInContext } from "../context/LoginContext.js"
 import Spinner from 'react-bootstrap/Spinner'
+import { profilecontext } from "../context/ProfileContext.js";
+import jwt_decode from "jwt-decode"
 const SignIn = (props) => {
 
     const [formData, setData] = useState({ email: '', password: '' })
@@ -11,8 +13,7 @@ const SignIn = (props) => {
     const [showPassword, setShowPassword] = useState(false)
     const { setToken } = useContext(loggedInContext)
     const [loading, setLoading] = useState(false);
-
-
+    const {setAvatar}=useContext(profilecontext)
 
 
 
@@ -62,9 +63,11 @@ const SignIn = (props) => {
 
                 localStorage.setItem('token', JSON.stringify(result.authtoken))
                 setToken(result.authtoken)
-
+                const result=jwt_decode(result.authtoken)
+                localStorage.setItem('avatar',JSON.stringify(result.data.user.avatar))
+                setAvatar(result.data.user.avatar)
                 navigate('/')
-
+                
                 props.setOpen(true);
 
 

@@ -9,7 +9,7 @@ const SignUpForm = (props) => {
     email: '',
     password: '',
     confirmPassword: '',
-    // file: null
+    file: null
 
   });
 
@@ -23,9 +23,9 @@ const SignUpForm = (props) => {
       [event.target.name]: event.target.value
     });
   };
-  // const handleFileChange = (event) => {
-  //   setData({ ...data, file: event.target.files[0] })
-  // }
+  const handleFileChange = (event) => {
+    setData({ ...data, file: event.target.files[0] })
+  }
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrors({})
@@ -55,12 +55,17 @@ const SignUpForm = (props) => {
     }
     try {
      
-      const formdata={'name':data.name,'email':data.email,'password':data.password}
+      // const formdata={'name':data.name,'email':data.email,'password':data.password}
+      const formData = new FormData()
+      formData.append('image', data.file)
+      formData.append('name',data.name)
+      formData.append('password',data.password)
+      formData.append('email',data.email)
       const response = await fetch('https://notebook-backend-virid.vercel.app/auth/create', {
         method: 'POST',
-        headers:{'Content-Type':'application/json'},
+        headers:{'Content-Type':'multipart/form-data'},
         
-         body:JSON.stringify(formdata)})
+         body:formData})
 
         
 
@@ -122,7 +127,10 @@ const SignUpForm = (props) => {
                 {errors.confirmPassword && <div className="invalid-feedback">{errors.confirmPassword}</div>}
 
               </div>
-             
+              <div className="mb-3">
+                <label htmlFor="image" className="form-label">Profile Image</label>
+                <input type="file" className="form-control"  id="image" name="image" onChange={handleFileChange} accept="image/*" />
+              </div>
               <button type="submit" style={{ height: '40px' }} className="btn btn-sm btn-dark mt-2 w-100">Sign Up</button>
               <div style={{ color: "red" }}>{errors.fulfil === '' ?'': errors.fulfil}</div>
 

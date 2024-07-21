@@ -15,18 +15,24 @@ import { useContext } from 'react';
 import { loggedInContext } from '../context/LoginContext';
 import { useNavigate } from 'react-router-dom';
 import WbCloudyOutlinedIcon from '@mui/icons-material/WbCloudyOutlined';
-
+import { profilecontext } from '../context/ProfileContext.js';
+import { notecontext } from '../context/NoteContex.js';
+import { filterContext } from '../context/FilteredContext.js';
 const pages = ['About', 'Contacts'];
 const settings = ['Profile', 'Logout'];
 const guestSettings = ['Sign In', 'Sign Up'];
 function ResponsiveAppBar(props) {
   const { token,setToken } = useContext(loggedInContext);
-  // const {img,setImg}=useContext(imagecontext)  
+  const {avatar,setAvatar}=useContext(profilecontext);
+  const {setNote}=useContext(notecontext)
+  const {setFilter}=useContext(filterContext)
   const handleClick = () => {
-    // event.preventDefault()
     setToken(null)
-  //  setImg(null)
+  setAvatar(null)
+  setNote(null)
+  setFilter(null)
     localStorage.clear()
+
     navigate('/')
   } 
   const navigate = useNavigate();
@@ -170,9 +176,8 @@ function ResponsiveAppBar(props) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar sx={{ backgroundColor:"gray" }}>
-                  R
-                  </Avatar>
+                <Avatar  src={avatar}/>
+                  
               </IconButton>
             </Tooltip>
             <Menu

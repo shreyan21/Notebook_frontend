@@ -56,7 +56,7 @@ export default function ViewNote(props) {
       }
     }
     fetchData()
-  }, [token,setFilter,setNote])
+  }, [token, setFilter, setNote])
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -104,7 +104,7 @@ export default function ViewNote(props) {
 
   const drawer = (
     <Box sx={{ overflow: 'auto' }}  >
-      <form onSubmit={handleSubmit} style={{ padding: '16px'}} className="mt-5">
+      <form onSubmit={handleSubmit} style={{ padding: '16px' }} className="mt-5">
         <div className="mb-3">
           <label htmlFor="titleInput" className="form-label">Title:</label>
           <input
@@ -181,9 +181,11 @@ export default function ViewNote(props) {
           <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={backdrop}>
             <CircularProgress color="inherit" />
           </Backdrop>
-        ) : filternote.length === 0 ? (
+        ) : note.length === 0 ? (<div className="alert alert-info text-center" role="alert">
+          Your Notebook is empty <Link to="/addnote" className="alert-link">Add a note</Link>
+        </div>) : filternote.length === 0 ? (
           <div className="alert alert-info text-center" role="alert">
-            Your notebook is empty. <Link to="/addnote" className="alert-link">Add a note</Link>
+            No results found 
           </div>
         ) : (
           <div className="container mt-5">

@@ -17,6 +17,7 @@ import { Grow, Snackbar } from '@mui/material';
 import ResponsiveAppBar from './components/ResponsiveAppBar.jsx';
 import ViewNote from './components/ViewNote.jsx';
 import Footer from './components/Footer.jsx';
+import { profilecontext } from './context/ProfileContext.js';
 function App() {
 
   const [show, setShow] = useState(false)
@@ -26,6 +27,7 @@ function App() {
   }
   const [token, setToken] = useState(localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null)
   const [note,setNote]=useState([])
+  const [avatar,setAvatar]=useState(localStorage.getItem('avatar')?JSON.parse(localStorage.getItem('avatar')):null)
 
  
         
@@ -38,7 +40,7 @@ function App() {
       <loggedInContext.Provider value={{ token, setToken }} >
         <notecontext.Provider value={{ note, setNote }}>
           <filterContext.Provider value={{ filternote, setFilter }}>
-            {/* <imagecontext.Provider value={{ img, setImg }}> */}
+            <profilecontext.Provider value={{avatar,setAvatar}}>
               <ResponsiveAppBar setShow={setShow} />
               <div className='container mt-2'>
                 {!token && <LandingPage setShow={setShow} />}
@@ -54,7 +56,7 @@ function App() {
               </div>
               <Footer />
 
-            {/* </imagecontext.Provider> */}
+            </profilecontext.Provider>
           </filterContext.Provider>
         </notecontext.Provider>
       </loggedInContext.Provider >
