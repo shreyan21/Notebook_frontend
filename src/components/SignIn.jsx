@@ -4,7 +4,6 @@ import { useNavigate, Link } from "react-router-dom"
 import { loggedInContext } from "../context/LoginContext.js"
 import Spinner from 'react-bootstrap/Spinner'
 import { profilecontext } from "../context/ProfileContext.js";
-import {jwtDecode} from "jwt-decode"
 const SignIn = (props) => {
 
     const [formData, setData] = useState({ email: '', password: '' })
@@ -64,9 +63,8 @@ const SignIn = (props) => {
 
                 localStorage.setItem('token', JSON.stringify(result.authtoken))
                 setToken(result.authtoken)
-                const decoded=jwtDecode(result.authtoken)
-                localStorage.setItem('avatar',JSON.stringify(decoded.data.user.avatar))
-                setAvatar(decoded.data.user.avatar)
+                localStorage.setItem('avatar',JSON.stringify(result.avatar))
+                setAvatar(result.avatar)
                 navigate('/')
                 
                 props.setOpen(true);
@@ -134,7 +132,7 @@ const SignIn = (props) => {
                             <button type="submit" className="btn btn-sm  btn-dark mt-2 w-100" style={{ height: '40px' }} >Sign In</button>
 
                             <Link to={`/password/${formData.email}`} className=" text-decoration-none " onClick={emailWritten} >Forgot password</Link>
-                            <div style={{ color: 'red', textAlign: 'center' }} >{error}</div>
+                            <div style={{ color: 'red', textAlign: 'center' }} >{typeof error === 'string' ? error : ''}</div>
                         </form>
                     </div>
                 </Modal.Body>

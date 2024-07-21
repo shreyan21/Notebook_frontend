@@ -80,7 +80,7 @@ const SignUpForm = (props) => {
         setErrors({ fulfil: res.message })
       }
     } catch (error) {
-      setErrors({ fulfil: 'Server error' })
+      setErrors({ fulfil:"Server error" })
     }
   };
 
