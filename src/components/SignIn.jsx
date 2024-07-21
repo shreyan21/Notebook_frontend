@@ -54,18 +54,19 @@ const SignIn = (props) => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
+                
             });
 
 
             let result = await res.json()
-
+               
             if (res.ok) {
 
                 localStorage.setItem('token', JSON.stringify(result.authtoken))
                 setToken(result.authtoken)
-                const result=jwtDecode(result.authtoken)
-                localStorage.setItem('avatar',JSON.stringify(result.data.user.avatar))
-                setAvatar(result.data.user.avatar)
+                const decoded=jwtDecode(result.authtoken)
+                localStorage.setItem('avatar',JSON.stringify(decoded.data.user.avatar))
+                setAvatar(decoded.data.user.avatar)
                 navigate('/')
                 
                 props.setOpen(true);
