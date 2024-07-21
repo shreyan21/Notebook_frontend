@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import {  useNavigate, useParams } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal'
-import { notecontext } from "../context/NoteContext";
-import { filterContext } from "../context/FilteredContext";
+import { notecontext } from "../context/NoteContext.js";
+import { filterContext } from "../context/FilteredContext.js";
 const EditNote = (props) => {
 
     let val;

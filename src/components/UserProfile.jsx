@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { loggedInContext } from '../context/LoginContext';
+import { loggedInContext } from '../context/LoginContext.js';
 import { jwtDecode } from 'jwt-decode';
 import Modal from 'react-bootstrap/Modal'
 import { useNavigate } from 'react-router-dom';

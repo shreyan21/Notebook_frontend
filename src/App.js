@@ -5,7 +5,7 @@ import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import AddNote from './components/AddNote';
 import { Routes, Route } from 'react-router-dom';
-import { loggedInContext } from './context/LoginContext.jsx';
+import { loggedInContext } from './context/LoginContext.js';
 import { notecontext } from './context/NoteContext.js';
 import EditNote from './components/EditNote.jsx';
 import { useState } from 'react';
@@ -17,7 +17,7 @@ import { Grow, Snackbar } from '@mui/material';
 import ResponsiveAppBar from './components/ResponsiveAppBar.jsx';
 import ViewNote from './components/ViewNote.jsx';
 import Footer from './components/Footer.jsx';
-import { profilecontext } from './context/ProfileContext.jsx';
+import { profilecontext } from './context/ProfileContext.js';
 function App() {
 
   const [show, setShow] = useState(false)

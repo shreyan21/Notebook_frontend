@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import {  useContext, useState } from "react";
 import Modal from 'react-bootstrap/Modal'
-import { filterContext } from "../context/FilteredContext";
-import { notecontext } from "../context/NoteContext";
+import { filterContext } from "../context/FilteredContext.js";
+import { notecontext } from "../context/NoteContext.js";
 const AddNote = (props) => {
 
 
