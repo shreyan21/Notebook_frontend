@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { loggedInContext } from "../context/LoginContext.js"
 import Spinner from 'react-bootstrap/Spinner'
 import { profilecontext } from "../context/ProfileContext.js";
-import jwt_decode from "jwt-decode"
+import {jwtDecode} from "jwt-decode"
 const SignIn = (props) => {
 
     const [formData, setData] = useState({ email: '', password: '' })
@@ -63,7 +63,7 @@ const SignIn = (props) => {
 
                 localStorage.setItem('token', JSON.stringify(result.authtoken))
                 setToken(result.authtoken)
-                const result=jwt_decode(result.authtoken)
+                const result=jwtDecode(result.authtoken)
                 localStorage.setItem('avatar',JSON.stringify(result.data.user.avatar))
                 setAvatar(result.data.user.avatar)
                 navigate('/')
