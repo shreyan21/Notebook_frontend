@@ -3,56 +3,30 @@ import { loggedInContext } from '../context/LoginContext.js';
 import { jwtDecode } from 'jwt-decode';
 import Modal from 'react-bootstrap/Modal'
 import { useNavigate } from 'react-router-dom';
-// import { Avatar } from '@mui/material';
-// import { imagecontext } from '../context/ImageContext';
+import { filterContext } from '../context/FilteredContext.js';
+import { notecontext } from '../context/NoteContext.js';
+import { profilecontext } from '../context/ProfileContext.js';
+
 
 function UserProfile(props) {
-    // Fetch user details and handle delete account functionality here
     const { token, setToken } = useContext(loggedInContext)
+    const{setFilter}=useContext(filterContext)
+    const {setNote}=useContext(notecontext)
+    const{setAvatar}=useContext(profilecontext)
     const data = jwtDecode(token)
     const navigate = useNavigate()
-    // const { img, setImg } = useContext(imagecontext)
-    // const fileUploadRef = useRef();
-
-    // const handleImageUpload = (event) => {
-    //     event.preventDefault();
-    //     fileUploadRef.current.click();
-    // };
-
-    // const uploadImage = async (file) => {
-    //     const formData = new FormData()
-    //     formData.append('image', file)
-    //     const response = await fetch('https://notebook-backend-nine.vercel.app/auth/imgupdate', {
-    //         method: 'PUT',
-    //         headers: {
-    //             'Authorization': `${token}`
-    //         },
-    //         body: formData
-    //     });
-    //     if (response.ok) {
-    //         const result = await response.json();
-            
-    //         setImg(result.image);
-    //         let image = JSON.parse(localStorage.getItem('image'));
-    //         if (!image) {
-    //           console.error('No image found in local storage');
-    //           return;
-    //         }
-          
-    //         // Update the image name
-    //         image = result.image;
-          
-    //         // Save the updated image back to local storage
-    //         localStorage.setItem('image', JSON.stringify(image));
-    //     } else {
-    //         console.error('Failed to upload image');
-    //     }
+   
     // }
     const removeuser = async (event) => {
         event.preventDefault()
         await fetch('https://notebook-backend-virid.vercel.app/auth/remove', { method: 'DELETE', headers: { 'Content-Type': 'application/json', 'Authorization': `${token}` }, body: JSON.stringify({ id: data.user.id }) })
         localStorage.clear()
         setToken(null)
+        setFilter(null)
+        setNote(null)
+        setAvatar(null)
+
+        
         navigate('/')
     }
     return (
