@@ -63,13 +63,14 @@ const SignUpForm = (props) => {
       formData.append('email',data.email)
       const response = await fetch('https://notebook-backend-virid.vercel.app/auth/create', {
         method: 'POST',
-        headers:{'Content-Type':'multipart/form-data'},
+        // headers:{'Content-Type':'multipart/form-data'},
         
          body:formData})
 
         
 
       const res = await response.json()
+      
       if (response.ok) {
         navigate('/')
 
@@ -101,7 +102,7 @@ const SignUpForm = (props) => {
 
         <div className="container mt-1">
           {message === '' ? (
-            <form onSubmit={handleSubmit} method='POST' style={{ maxWidth: '400px', margin: '0 auto' }} >
+            <form onSubmit={handleSubmit} method='POST' style={{ maxWidth: '400px', margin: '0 auto' }} encType='multipart/form-data'>
               <div className="mb-1">
                 <label htmlFor="name" className="form-label">Name</label>
                 <input type="text" className="form-control" id="name" name="name" value={data.name} onChange={handleChange} required />
@@ -129,7 +130,7 @@ const SignUpForm = (props) => {
               </div>
               <div className="mb-3">
                 <label htmlFor="image" className="form-label">Profile Image</label>
-                <input type="file" className="form-control"  id="image" name="image" onChange={handleFileChange} accept="image/*" />
+                <input type="file" className="form-control"  id="image" name="image" onChange={handleFileChange}  />
               </div>
               <button type="submit" style={{ height: '40px' }} className="btn btn-sm btn-dark mt-2 w-100">Sign Up</button>
               <div style={{ color: "red" }}>{errors.fulfil === '' ?'': errors.fulfil}</div>
