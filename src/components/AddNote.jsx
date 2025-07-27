@@ -18,7 +18,7 @@ const AddNote = (props) => {
     event.preventDefault()
 
 
-    const result=await fetch('https://notebook-backend-pos65bj3i-utkarsh-singh-rajawats-projects.vercel.app//notes/addNotes', {
+    const result=await fetch('https://notebook-backend-virid.vercel.app/notes/addNotes', {
       method: 'POST', headers: { 'Content-Type': 'Application/json', 'Authorization': `${JSON.parse(localStorage.getItem('token'))}` }, body: JSON.stringify({ title, description, tag })
     })
     const res=await result.json()
